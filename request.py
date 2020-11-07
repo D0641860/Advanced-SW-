@@ -6,7 +6,7 @@ import traceback
 import cgi
 
 import os
-
+import time
 app = Flask(__name__)
 #student_ID=""
 app.config['SESSION_PERMANENT'] = True
@@ -68,23 +68,22 @@ def index():
     except:
         db.rollback()
 
-    return "insert success"
-
-    if(data!=None):
-        session['username']=ID
-        session['password']=pwd
-        session['name']=data[1]
-        session['Class']=data[4]
-        if(data[3]==1):
-             session['login_message']=2 
-             login_message=2
-        else:
-             session['login_message']=1
-             login_message=1
+    return render_template("success.html")
+    # if(data!=None):
+    #     session['username']=ID
+    #     session['password']=pwd
+    #     session['name']=data[1]
+    #     session['Class']=data[4]
+    #     if(data[3]==1):
+    #          session['login_message']=2 
+    #          login_message=2
+    #     else:
+    #          session['login_message']=1
+    #          login_message=1
        
-        return render_template('searchCourse.html',alert_msg=0,login_message=login_message,student=ID,name=data[1],Class=data[4])
-    else:
-        return render_template('fail.html')
+    #     return render_template('searchCourse.html',alert_msg=0,login_message=login_message,student=ID,name=data[1],Class=data[4])
+    # else:
+    #     return render_template('fail.html')
     
 # @app.route('/searchCourse')  #課程檢索
 # def f_sear1ch1():
