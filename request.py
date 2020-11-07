@@ -49,34 +49,42 @@ def refrig():
 def menu():
     session.clear()
     return render_template('menu.html')
-# @app.route('/action', methods=['GET', 'POST'])
-# def index():
-#     session.clear()
-#     ID = request.values['username']
-#     pwd =request.values['password']
-    
-    
-#     if(ID.isupper):
-#         ID=ID.upper()
-    
-#     cursor.execute("SELECT * FROM `student` WHERE s_id='%s' and s_password='%s'"%(ID,pwd))
-#     data =cursor.fetchone()
 
-#     if(data!=None):
-#         session['username']=ID
-#         session['password']=pwd
-#         session['name']=data[1]
-#         session['Class']=data[4]
-#         if(data[3]==1):
-#              session['login_message']=2 
-#              login_message=2
-#         else:
-#              session['login_message']=1
-#              login_message=1
+@app.route('/action', methods=['GET', 'POST'])
+def index():
+    session.clear()
+    ID = request.values['account']
+    pwd =request.values['password']
+    if(ID.isupper):
+        ID=ID.upper()
+    
+    # cursor.execute("SELECT * FROM `student` WHERE s_id='%s' and s_password='%s'"%(ID,pwd))
+    # data =cursor.fetchone()
+    insert="INSERT INTO user (account, password) VALUES(%s,%s)"
+    print(insert)
+    try:
+        cursor.execute(insert,(ID,pwd))
+        db.commit()
+    except:
+        db.rollback()
+
+    return "insert success"
+
+    if(data!=None):
+        session['username']=ID
+        session['password']=pwd
+        session['name']=data[1]
+        session['Class']=data[4]
+        if(data[3]==1):
+             session['login_message']=2 
+             login_message=2
+        else:
+             session['login_message']=1
+             login_message=1
        
-#         return render_template('searchCourse.html',alert_msg=0,login_message=login_message,student=ID,name=data[1],Class=data[4])
-#     else:
-#         return render_template('fail.html')
+        return render_template('searchCourse.html',alert_msg=0,login_message=login_message,student=ID,name=data[1],Class=data[4])
+    else:
+        return render_template('fail.html')
     
 # @app.route('/searchCourse')  #課程檢索
 # def f_sear1ch1():
