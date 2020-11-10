@@ -50,8 +50,8 @@ def menu():
     session.clear()
     return render_template('menu.html')
 
-@app.route('/action', methods=['GET', 'POST'])
-def index():
+@app.route('/action', methods=['GET', 'POST'])  #註冊
+def action():
     session.clear()
     ID = request.values['account']
     pwd =request.values['password']
@@ -84,7 +84,27 @@ def index():
     #     return render_template('searchCourse.html',alert_msg=0,login_message=login_message,student=ID,name=data[1],Class=data[4])
     # else:
     #     return render_template('fail.html')
+
+@app.route('/confirm', methods=['GET', 'POST'])  #登入
+def confirm():  
+    session.clear()
+    ID = request.values['account']
+    pwd =request.values['password']
+    if(ID.isupper):
+        ID=ID.upper()
     
+    # cursor.execute("SELECT * FROM `student` WHERE s_id='%s' and s_password='%s'"%(ID,pwd))
+    # data =cursor.fetchone()
+    select="SELECT * FROM `user` WHERE account='%s' and password='%s'"%(ID,pwd)
+    print(select)
+    cursor.execute(select)
+    data=cursor.fetchone()
+    if(data!=None):
+        return redirect(url_for("f_index"))
+    else:
+        return redirect(url_for("login"))
+    
+
 # @app.route('/searchCourse')  #課程檢索
 # def f_sear1ch1():
 #     student=session.get('username')
