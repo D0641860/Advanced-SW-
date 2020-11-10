@@ -100,7 +100,7 @@ def confirm():
     cursor.execute(select)
     data=cursor.fetchone()
     if(data!=None):
-        return redirect(url_for("f_index"))
+        return render_template("index.html",login_message=1)
     else:
         return redirect(url_for("login"))
     
