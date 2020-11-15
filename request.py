@@ -15,7 +15,7 @@ app.config['SESSION_TYPE'] = 'filesystem'
 app.config['PERMANENT_SESSION_LIFETIME'] = 7200
 app.config['SESSION_FILE_THRESHOLD'] = 100  
 app.config['SECRET_KEY'] = "advancedsw"
-
+#我來感受一下的
 #conn = pymysql.connect(host=‘127.0.0.1‘, port=3307, user=‘root‘, passwd=‘hch123‘, db=‘zst‘, charset=‘utf8‘)
 db= pymysql.connect(host="127.0.0.1",port=3307,user="advancedsw",password="advancedsw",db="advancedsw")
 cursor=db.cursor()
