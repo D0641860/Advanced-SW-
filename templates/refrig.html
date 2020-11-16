@@ -43,8 +43,8 @@
 		</a>
 		<nav class="header-nav">
 			<ul class="main-menu">
-				<li><a href="index" class="active">Home</a></li>
-				<li><a href="refrig">Refrig</a></li>
+				<li><a href="index" >Home</a></li>
+				<li><a href="refrig"class="active">Refrig</a></li>
 				<!-- <li><a href="#">Pages</a>
 					<ul class="sub-menu">
 						<li><a href="about-us.html">About Us</a></li>
@@ -53,9 +53,10 @@
 					</ul>
 				</li> -->
 				
-				<li><a href="login">Login</a></li>
-				<li><a href="register">Register</a></li>
-				<li><a href="menu">Menu</a></li>
+				<li id=check_login><a href="login">Login</a></li>
+				<li id=check_register><a href="register">Register</a></li>
+				<li><a href="menu" >Menu</a></li>
+				<li id=check_logout><a href="logout">Logout</a></li>
 			</ul>
 			<!-- <div class="header-right">
 				<a href="#" class="hr-btn"><i class="flaticon-029-telephone-1"></i>Call us now! </a>
@@ -347,6 +348,23 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="./static/js/owl.carousel.min.js"></script>
 	<script src="./static/js/jquery-ui.min.js"></script>
 	<script src="./static/js/main.js"></script>
-
+	<script>
+		$(document).ready(function (){
+			var login='{{login_message}}'
+			allCookies = document.cookie;
+			if(login==1)
+			{
+				$("#check_login").hide();
+				$("#check_register").hide();
+				$("#check_logout").show();
+				login=1
+			}
+			if(login==0)
+			{
+				$("#check_logout").hide();
+			}
+		}
+		)
+	</script>
 	</body>
 </html>

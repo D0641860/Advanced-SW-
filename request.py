@@ -4,6 +4,9 @@ import pymysql
 import requests
 import traceback
 import cgi
+from flask.sessions import SessionInterface
+from flask.sessions import SessionMixin
+from itsdangerous import Signer, BadSignature, want_bytes
 
 import os
 import time
@@ -22,13 +25,19 @@ cursor=db.cursor()
 
 @app.route('/') #進入點
 def f_index():
-    session.clear()
-    return render_template('index.html')
+    username=session.get('username')
+    if username:
+        return render_template('index.html',login_message=1)
+    else:
+        return render_template('index.html',login_message=0)
 
 @app.route('/index') #登入畫面
 def login_in():
-    session.clear()
-    return render_template('index.html')
+    username=session.get('username')
+    if username:
+        return render_template('index.html',login_message=1)
+    else:
+        return render_template('index.html',login_message=0)
 
 @app.route('/login') #登入畫面
 def login():
@@ -42,13 +51,25 @@ def register():
 
 @app.route('/refrig') #冰箱畫面
 def refrig():
-    session.clear()
-    return render_template('refrig.html')
+    username=session.get('username')
+    if username:
+        return render_template('refrig.html',login_message=1)
+    else:
+        return render_template('refrig.html',login_message=0)
 
 @app.route('/menu') #菜單畫面
 def menu():
+    username=session.get('username')
+    if username:
+        return render_template('menu.html',login_message=1)
+    else:
+        return render_template('menu.html',login_message=0)
+
+@app.route('/logout') #登入畫面
+def logout():
     session.clear()
-    return render_template('menu.html')
+    return redirect('/')
+
 
 @app.route('/action', methods=['GET', 'POST'])  #註冊
 def action():
@@ -92,7 +113,9 @@ def confirm():
     pwd =request.values['password']
     if(ID.isupper):
         ID=ID.upper()
-    
+    session['username']=ID
+    session.permanent=True
+    session.get('username')
     # cursor.execute("SELECT * FROM `student` WHERE s_id='%s' and s_password='%s'"%(ID,pwd))
     # data =cursor.fetchone()
     select="SELECT * FROM `user` WHERE account='%s' and password='%s'"%(ID,pwd)
@@ -100,9 +123,9 @@ def confirm():
     cursor.execute(select)
     data=cursor.fetchone()
     if(data!=None):
-        return render_template("index.html",login_message=1)
+        return redirect('/')
     else:
-        return redirect(url_for("login"))
+        return '請註冊'
     
 
 # @app.route('/searchCourse')  #課程檢索
