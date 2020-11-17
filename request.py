@@ -11,6 +11,9 @@ from itsdangerous import Signer, BadSignature, want_bytes
 import os
 import time
 app = Flask(__name__)
+
+#fuck you man. I wanna kick your ass shit man.
+
 #student_ID=""
 app.config['SESSION_PERMANENT'] = True
 app.config['SESSION_USE_SIGNER'] = False  
@@ -20,7 +23,7 @@ app.config['SESSION_FILE_THRESHOLD'] = 100
 app.config['SECRET_KEY'] = "advancedsw"
 #我來感受一下的
 #conn = pymysql.connect(host=‘127.0.0.1‘, port=3307, user=‘root‘, passwd=‘hch123‘, db=‘zst‘, charset=‘utf8‘)
-db= pymysql.connect(host="127.0.0.1",port=3307,user="advancedsw",password="advancedsw",db="advancedsw")
+db= pymysql.connect(host="127.0.0.1",port=3306,user="root",password="",db="test")
 cursor=db.cursor()
 
 @app.route('/') #進入點
