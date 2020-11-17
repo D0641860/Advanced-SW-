@@ -27,7 +27,7 @@ cursor=db.cursor()
 def f_index():
     username=session.get('username')
     if username:
-        return render_template('index.html',login_message=1)
+        return render_template('index.html',login_message=1,user=username)
     else:
         return render_template('index.html',login_message=0)
 
@@ -35,7 +35,7 @@ def f_index():
 def login_in():
     username=session.get('username')
     if username:
-        return render_template('index.html',login_message=1)
+        return render_template('index.html',login_message=1,user=username)
     else:
         return render_template('index.html',login_message=0)
 
@@ -53,15 +53,26 @@ def register():
 def refrig():
     username=session.get('username')
     if username:
-        return render_template('refrig.html',login_message=1)
+        select="SELECT * FROM `refrigerator` WHERE account='%s'"%(username)
+        print(select)
+        cursor.execute(select)
+        data=cursor.fetchall()
+        print(data)
+        #print(data[0][0]) 
+        #print(data[0][1])      #取值 二維
+        #print(data[0][2])
+        if (data!=None):
+            return render_template('refrig.html',login_message=1,userdata=data,user=username)
+        else:
+            return render_template('refrig.html',login_message=1,user=username)
     else:
-        return render_template('refrig.html',login_message=0)
+        return '請先登入'
 
 @app.route('/menu') #菜單畫面
 def menu():
     username=session.get('username')
     if username:
-        return render_template('menu.html',login_message=1)
+        return render_template('menu.html',login_message=1,user=username)
     else:
         return render_template('menu.html',login_message=0)
 

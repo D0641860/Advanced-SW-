@@ -57,6 +57,7 @@
 				<li id=check_register><a href="register">Register</a></li>
 				<li><a href="menu" class="active">Menu</a></li>
 				<li id=check_logout><a href="logout">Logout</a></li>
+				<li id=check_user><a href="index">{{user}}</a></li>
 			</ul>
 			<!-- <div class="header-right">
 				<a href="#" class="hr-btn"><i class="flaticon-029-telephone-1"></i>Call us now! </a>
@@ -358,11 +359,13 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 				$("#check_login").hide();
 				$("#check_register").hide();
 				$("#check_logout").show();
-				login=1
+				$("#check_user").show();
+				
 			}
 			if(login==0)
 			{
 				$("#check_logout").hide();
+				$("#check_user").hide();
 			}
 		}
 		)

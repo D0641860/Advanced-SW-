@@ -57,6 +57,7 @@
 				<li id=check_register><a href="register">Register</a></li>
 				<li><a href="menu" >Menu</a></li>
 				<li id=check_logout><a href="logout">Logout</a></li>
+				<li><a href="index">{{user}}</a></li>
 			</ul>
 			<!-- <div class="header-right">
 				<a href="#" class="hr-btn"><i class="flaticon-029-telephone-1"></i>Call us now! </a>
@@ -65,6 +66,8 @@
 		</nav>
 	</header>
 	<!-- Header Section end -->
+
+	<!-- <section>{{userdata[0][0]}} {{userdata[0][1]}} </section>  取值 二維--> 
 
 	<!-- Hero Section end -->
 	<section class="hero-section">
@@ -357,11 +360,13 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 				$("#check_login").hide();
 				$("#check_register").hide();
 				$("#check_logout").show();
-				login=1
+				$("#check_user").show();
+				
 			}
 			if(login==0)
 			{
 				$("#check_logout").hide();
+				$("#check_user").hide();
 			}
 		}
 		)
