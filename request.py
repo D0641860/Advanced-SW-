@@ -11,6 +11,9 @@ from itsdangerous import Signer, BadSignature, want_bytes
 import os
 import time
 app = Flask(__name__)
+
+#fuck you man. I wanna kick your ass shit man.
+
 #student_ID=""
 app.config['SESSION_PERMANENT'] = True
 app.config['SESSION_USE_SIGNER'] = False  
