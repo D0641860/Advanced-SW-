@@ -31,7 +31,7 @@ def f_index():
     else:
         return render_template('index.html',login_message=0)
 
-@app.route('/index') #登入畫面
+@app.route('/index') #首頁畫面
 def login_in():
     username=session.get('username')
     if username:
@@ -39,7 +39,7 @@ def login_in():
     else:
         return render_template('index.html',login_message=0)
 
-@app.route('/login') #登入畫面
+@app.route('/login') #登入頁面
 def login():
     session.clear()
     return render_template('login.html')
@@ -76,7 +76,7 @@ def menu():
     else:
         return render_template('menu.html',login_message=0)
 
-@app.route('/logout') #登入畫面
+@app.route('/logout') #登出畫面
 def logout():
     session.clear()
     return redirect('/')
@@ -137,8 +137,18 @@ def confirm():
         return redirect('/')
     else:
         return '請註冊'
-    
 
+@app.route('/search', methods=['GET', 'POST']) #菜單畫面
+def search():
+    searchmeal = request.values['search']
+    select="SELECT * FROM `user` WHERE account='%s' and password='%s'"%(ID,pwd)
+    print(select)
+    cursor.execute(select)
+    data=cursor.fetchone()
+    if username:
+        return render_template('menu.html',login_message=1,user=username)
+    else:
+        return render_template('menu.html',login_message=0)
 # @app.route('/searchCourse')  #課程檢索
 # def f_sear1ch1():
 #     student=session.get('username')
