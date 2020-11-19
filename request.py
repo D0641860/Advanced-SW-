@@ -100,7 +100,7 @@ def action():
     except:
         db.rollback()
 
-    return render_template("success.html")
+    return render_template("login.html",register_message=1)
     # if(data!=None):
     #     session['username']=ID
     #     session['password']=pwd
