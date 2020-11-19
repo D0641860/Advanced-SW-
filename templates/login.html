@@ -350,7 +350,14 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="static/js/owl.carousel.min.js"></script>
 	<script src="static/js/jquery-ui.min.js"></script>
 	<script src="static/js/main.js"></script>
-
+	<script>
+		$(document).ready(function(){
+			var register='{{register_message}}'
+			if(register==1){
+				alert("Register Success!")
+			}
+		})
+	</script>
 
 	</body>
 </html>
