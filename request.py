@@ -57,12 +57,15 @@ def refrig():
         print(select)
         cursor.execute(select)
         data=cursor.fetchall()
-        print(data)
-        #print(data[0][0]) 
-        #print(data[0][1])      #取值 二維
-        #print(data[0][2])
+        # change=[]
+        # for i in range(len(data)):
+        #     change.append(data[i])
+        # print(change[0][0])
+        # print(change[1])
+        #print(type(change))
+        #print(len(change))
         if (data!=None):
-            return render_template('refrig.html',login_message=1,userdata=data,user=username)
+            return render_template('refrig.html',login_message=1,user=username,userdata=data,lendata=len(data))
         else:
             return render_template('refrig.html',login_message=1,user=username)
     else:
