@@ -2,7 +2,7 @@
 <html lang="zxx">
 
 <head>
-	<title>LOANS2GO | Loans HTML Template</title>
+	<title>Hi-Yai料理小教室</title>
 	<meta charset="UTF-8">
 	<meta name="description" content="loans HTML Template">
 	<meta name="keywords" content="loans, html">
@@ -69,42 +69,6 @@
 			</div> -->
 		</nav>
 	</header>
-	<!-- Header Section end -->
-
-	<!-- <section>{{userdata[0][0]}} {{userdata[0][1]}} </section>  取值 二維-->
-
-	<!-- Hero Section end -->
-	<section>
-
-	</section>
-	<!-- <section class="hero-section">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6">
-					<div class="hs-text">
-						<h2>Looking for a same day loan?</h2>
-						<p>Donec eget efficitur ex. Donec eget dolor vitae eros feugiat tristique id vitae massa. Proin vulputate congue rutrum. Fusce lobortis a enim eget tempus. Class aptent taciti sociosqu ad litora torquent per conubia.</p>
-						<a href="#" class="site-btn sb-dark">Find out more</a>
-					</div>
-				</div>
-				<div class="col-lg-6">
-					<form class="hero-form">
-						<input type="text" placeholder="Your Name">
-						<input type="text" placeholder="Your E-mail">
-						<input type="text" placeholder="Your Phone">
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. </p>
-						<button class="site-btn">Apply for a loan now!</button>
-					</form>
-				</div>
-			</div>
-		</div>
-		<div class="hero-slider owl-carousel">
-			<div class="hs-item set-bg" data-setbg="static/img/hero-slider/1.jpg"></div>
-			<div class="hs-item set-bg" data-setbg="static/img/hero-slider/2.jpg"></div>
-			<div class="hs-item set-bg" data-setbg="static/img/hero-slider/3.jpg"></div>
-		</div>
-	</section> -->
-	<!-- Hero Section end -->
 
 	<!-- Why Section end -->
 	<section class="why-section spad">
@@ -137,14 +101,20 @@
 			</div> -->
 			<div class="row">
 				{% for data in userdata %}
-				<div class="ib-text">
-					<h5>食材:{{ data[0] }}</h5>
-					<p>存入日期:{{data[1]}} 有效期限:{{data[2]}}天</p>
+				<div class="col-md-4">
+					<div class="ib-text">
+						<h6>食材:{{data[1]}}</h6>
+						<h5>存入日期:{{data[2]}} 有效期限:{{data[3]}}</h5>
+						<form action="delete" method="POST" >
+							<input type="submit" value="刪除" name="{{data[0]}}">
+						</form>
+
+					</div>
 				</div>
 				{% endfor %}
 			</div>
 			<div class="text-center pt-3">
-				<a href="#" class="site-btn sb-big">Add Now!</a>
+				<a href="addrefrig" class="site-btn sb-big">Add Now!</a>
 			</div>
 		</div>
 	</section>
@@ -397,31 +367,6 @@
 				$("#check_logout").hide();
 				$("#check_user").hide();
 			}
-			
-			// var ingredient = String("食材:{{"+userdata[i]][1]+"}}")
-			// var store_time = String("存入日期:{{"+userdata[i][2]+"}}")
-			// var lifetime = String("有效期限:{{"+userdata[i][3]+"}}")
-		
-			// $('#item').html(
-			// 	$('<div/>')
-			// 		.addClass("col-md-4")
-			// 		.append(
-			// 			$('<div/>')
-			// 				.addClass("ib-text")
-			// 				.append(
-			// 					$('<h5/>')
-			// 						.html(ingredient)
-			// 						.append(
-			// 							$('<p/>')
-			// 								.html('存入日期{{userdata[1][2]}},有效期限{{userdata[1][3]}}天')
-			// 						)
-
-			// 				)
-			// 		)
-			// );
-
-
-
 		}
 		)
 	</script>

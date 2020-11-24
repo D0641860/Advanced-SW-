@@ -49,6 +49,12 @@ def register():
     session.clear()
     return render_template('register.html')
 
+@app.route('/addrefrig') #新增畫面
+def addrefrig():
+    username=session.get('username')
+    if username:
+        return render_template('addrefrig.html',login_message=1,user=username)
+    
 @app.route('/refrig') #冰箱畫面
 def refrig():
     username=session.get('username')
@@ -57,6 +63,8 @@ def refrig():
         print(select)
         cursor.execute(select)
         data=cursor.fetchall()
+        print(data)
+        print(len(data))
         # change=[]
         # for i in range(len(data)):
         #     change.append(data[i])
@@ -152,6 +160,43 @@ def search():
         return render_template('menu.html',login_message=1,user=username)
     else:
         return render_template('menu.html',login_message=0)
+
+@app.route('/addingredient', methods=['GET', 'POST'])  #新增食材到冰箱
+def addingredient():
+    username=session.get('username')
+    ingredientname = request.values['ingredientname']
+    date =request.values['date']
+    expire =request.values['expire']
+
+    select="SELECT * FROM `refrigerator` WHERE account='%s'"%(username)
+    print(select)
+    cursor.execute(select)
+    data=cursor.fetchall()
+    #print(len(data))
+    #print(str(date))
+    #print(type(date))
+    #print(type(expire))
+    insert="INSERT INTO `refrigerator` (selfid, ingredientname, date, expire, account) VALUES(%s,%s,%s,%s,%s)"
+    print(insert)
+    try:
+        cursor.execute(insert,(len(data)+1,ingredientname,date,expire,username))
+        db.commit()
+    except:
+        db.rollback()
+    
+    select="SELECT * FROM `refrigerator` WHERE account='%s'"%(username)
+    cursor.execute(select)
+    data=cursor.fetchall()
+
+    return render_template('refrig.html',login_message=1,user=username,userdata=data,lendata=len(data))
+
+@app.route('/delete', methods=['GET', 'POST'])  #新增食材到冰箱
+def delete():
+    username=session.get('username')
+    selfid=request.values['{{data[0]}}']
+    print(username)
+    print(selfid)
+    return 
 # @app.route('/searchCourse')  #課程檢索
 # def f_sear1ch1():
 #     student=session.get('username')
