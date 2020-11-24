@@ -8,6 +8,10 @@ from flask.sessions import SessionInterface
 from flask.sessions import SessionMixin
 from itsdangerous import Signer, BadSignature, want_bytes
 
+import requests
+from bs4 import Tag, BeautifulSoup as bs
+from lxml import html
+
 import os
 import time
 app = Flask(__name__)
@@ -60,11 +64,11 @@ def refrig():
     username=session.get('username')
     if username:
         select="SELECT * FROM `refrigerator` WHERE account='%s'"%(username)
-        print(select)
+        #print(select)
         cursor.execute(select)
         data=cursor.fetchall()
-        print(data)
-        print(len(data))
+        #print(data)
+        #print(len(data))
         # change=[]
         # for i in range(len(data)):
         #     change.append(data[i])
@@ -169,34 +173,59 @@ def addingredient():
     expire =request.values['expire']
 
     select="SELECT * FROM `refrigerator` WHERE account='%s'"%(username)
-    print(select)
     cursor.execute(select)
     data=cursor.fetchall()
+
+    start_time=date.split('-')
+    end_time=expire.split('-')
+    print(start_time)
+    print(start_time[0])
+    print(type(start_time))
+    deadline=[]
+
+    for i in range(3):
+        deadline.append(int(end_time[i])-int(start_time[i]))
+    answer=deadline[0]*365+deadline[1]*30+deadline[2]
+    print(answer) 
+    
     #print(len(data))
     #print(str(date))
     #print(type(date))
     #print(type(expire))
-    insert="INSERT INTO `refrigerator` (selfid, ingredientname, date, expire, account) VALUES(%s,%s,%s,%s,%s)"
+    insert="INSERT INTO `refrigerator` (selfid, ingredientname, date, expire, account, deadline) VALUES(%s,%s,%s,%s,%s,%s)"
     print(insert)
     try:
-        cursor.execute(insert,(len(data)+1,ingredientname,date,expire,username))
+        cursor.execute(insert,(len(data)+1,ingredientname,date,expire,username,str(answer)))
         db.commit()
     except:
         db.rollback()
-    
+    return redirect('/refrig')
+
+@app.route('/delete' , methods=['GET', 'POST'])  #刪除冰箱的食材
+def delete():
+    username=session.get('username')
+    selfid=request.form.get("selfid")
+    #print(username)
+    #print(selfid)
     select="SELECT * FROM `refrigerator` WHERE account='%s'"%(username)
     cursor.execute(select)
     data=cursor.fetchall()
+    #print(select)
 
-    return render_template('refrig.html',login_message=1,user=username,userdata=data,lendata=len(data))
+    delete="DELETE FROM `refrigerator` WHERE account='%s' and selfid='%s'"%(username,selfid)
+    print(delete)
 
-@app.route('/delete', methods=['GET', 'POST'])  #新增食材到冰箱
-def delete():
-    username=session.get('username')
-    selfid=request.values['{{data[0]}}']
-    print(username)
-    print(selfid)
-    return 
+    cursor.execute(delete)
+    db.commit()
+    i=int(selfid)       
+    print(i)
+    while(i!=len(data)):    
+        i+=1
+        update='UPDATE `refrigerator` SET `selfid` = '+str(i-1)+' WHERE `selfid` = '+str(i)+''
+        #print(update)
+        cursor.execute(update)
+        db.commit()
+    return redirect('/refrig')
 # @app.route('/searchCourse')  #課程檢索
 # def f_sear1ch1():
 #     student=session.get('username')

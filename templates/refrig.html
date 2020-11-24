@@ -99,20 +99,28 @@
 					</div>
 				</div>
 			</div> -->
+
 			<div class="row">
 				{% for data in userdata %}
 				<div class="col-md-4">
 					<div class="ib-text">
 						<h6>食材:{{data[1]}}</h6>
 						<h5>存入日期:{{data[2]}} 有效期限:{{data[3]}}</h5>
-						<form action="delete" method="POST" >
-							<input type="submit" value="刪除" name="{{data[0]}}">
+						{% if data[5]<0 %}
+						<h5>已到期</h5>
+						{% else %}
+						<h5>剩餘日期約為:{{data[5]}}天</h5>
+						{% endif %}
+						<form action="delete" method="POST">
+						<input type="text" name="selfid" value="{{data[0]}}" hidden>
+						<input type="submit" value="刪除">
 						</form>
 
 					</div>
 				</div>
 				{% endfor %}
 			</div>
+
 			<div class="text-center pt-3">
 				<a href="addrefrig" class="site-btn sb-big">Add Now!</a>
 			</div>
