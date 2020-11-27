@@ -27,6 +27,8 @@ app.config['SECRET_KEY'] = "advancedsw"
 db= pymysql.connect(host="127.0.0.1",port=3307,user="advancedsw",password="advancedsw",db="advancedsw")
 cursor=db.cursor()
 
+#-----------------首頁功能------------------------
+
 @app.route('/') #進入點
 def f_index():
     username=session.get('username')
@@ -42,6 +44,47 @@ def login_in():
         return render_template('index.html',login_message=1,user=username)
     else:
         return render_template('index.html',login_message=0)
+
+@app.route('/Searchrecipe' ,methods=['GET', 'POST']) #搜尋食譜畫面
+def Searchrecipe():
+    username=session.get('username')
+    SearchByfood = request.values['SearchByfood']
+    SearchByingredient=request.values['SearchByingredient']
+    if SearchByfood: #藉由餐點(炒飯) 找實作影片
+        print(SearchByfood)
+        select="SELECT * FROM `linkandrecipe`, `recipe` WHERE mealname='%s' and recipe.mealid=linkandrecipe.mealid"%(SearchByfood)
+        print(select)
+        cursor.execute(select)
+        data=cursor.fetchall()
+        print(data)
+        if username:
+            return render_template('findvideo.html',login_message=1,user=username,linkdata=data,recipe=SearchByfood)
+        else:
+            return render_template('findvideo.html',login_message=0)
+    elif SearchByingredient:#藉由食材(鹽 糖 等等)找實作影片
+        print(SearchByingredient)
+        ingredient=SearchByingredient.split()
+        print(ingredient)
+        temp=[]
+        for i in range(len(ingredient)):
+            select="SELECT mealname FROM `foodandrecipe`, `food`,`recipe` WHERE ingredientname='%s' and food.ingredientid=foodandrecipe.ingredientid and foodandrecipe.mealid=recipe.mealid"%(SearchByingredient[i])
+            print(select)
+            cursor.execute(select)
+            data=cursor.fetchall()
+            temp.append(data)
+        print(temp)
+        # select="SELECT * FROM `linkandrecipe`, `recipe`, WHERE mealname='%s' and recipe.mealid=linkandrecipe.mealid"%(SearchByfood)
+        # print(select)
+        # cursor.execute(select)
+        # data=cursor.fetchall()
+        # print(data)
+        # if username:
+        #     return render_template('findvideo.html',login_message=1,user=username,linkdata=data,recipe=SearchByfood)
+        # else:
+        #     return render_template('findvideo.html',login_message=0)
+    
+
+#-----------------首頁功能------------------------
 
 @app.route('/login') #登入頁面
 def login():
