@@ -187,7 +187,7 @@ def addingredient():
         deadline.append(int(end_time[i])-int(start_time[i]))
     answer=deadline[0]*365+deadline[1]*30+deadline[2]
     print(answer) 
-    
+    #print(type(answer))
     #print(len(data))
     #print(str(date))
     #print(type(date))
