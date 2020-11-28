@@ -1,5 +1,5 @@
 import sys
-from flask import Flask, jsonify, request,render_template,session,redirect,url_for
+from flask import Flask, jsonify, request,render_template,session,redirect,url_for,json
 import pymysql 
 import requests
 import traceback
@@ -11,6 +11,9 @@ from itsdangerous import Signer, BadSignature, want_bytes
 import requests
 from bs4 import Tag, BeautifulSoup as bs
 from lxml import html
+
+import random
+import numpy as np
 
 import os
 import time
@@ -88,6 +91,31 @@ def Searchrecipe():
 
 #-----------------首頁功能------------------------
 
+
+@app.route('/random',methods=['GET', 'POST']) #隨機菜單
+def random_func():
+    random_day = int(request.values['random_day'])
+    num_of_meal = int(request.values['num_of_meal'])
+    print("random:",random_day)
+    print("num_of_meal:",num_of_meal)
+
+    select = "SELECT * FROM `recipe`"
+    cursor.execute(select)
+    data = cursor.fetchall()
+    print("data[0]: ",data[0])
+    print("type of data: ", type(data[0]))
+    print("len of data: ",len(data))
+
+    day_and_meal = [[0 for i in range(random_day)]for j in range(num_of_meal)]
+    for i in range(num_of_meal):
+        for j in range(random_day):
+            temp = data[random.randint(0,len(data)-1)][1]
+            day_and_meal[i][j] = temp
+
+    print(day_and_meal)
+    print("temp: ",type(day_and_meal))
+    print(len(day_and_meal[0]))
+    return render_template('randomMenu.html',meal_from_back=day_and_meal, meal_i=len(day_and_meal[0]))
 @app.route('/login') #登入頁面
 def login():
     session.clear()
@@ -112,15 +140,15 @@ def refrig():
         #print(select)
         cursor.execute(select)
         data=cursor.fetchall()
-        #print(data)
-        #print(len(data))
+        # print("data: ",data)
+        # print("data len: ",len(data))
         # change=[]
         # for i in range(len(data)):
         #     change.append(data[i])
-        # print(change[0][0])
-        # print(change[1])
-        #print(type(change))
-        #print(len(change))
+        # print("change: ",change[0][0])
+        # print("change[1]: ",change[1])
+        # print("change type: ",type(change))
+        # print("change len: ",len(change))
         if (data!=None):
             return render_template('refrig.html',login_message=1,user=username,userdata=data,lendata=len(data))
         else:
@@ -197,20 +225,6 @@ def confirm():
         return redirect('/')
     else:
         return '請註冊'
-
-@app.route('/search', methods=['GET', 'POST']) #菜單畫面
-def search():
-    searchmeal = request.values['search']
-    username = session.get('username')
-    # select="SELECT * FROM `user` WHERE account='%s' and password='%s'"%(ID,pwd)
-    select = "SELECT mealname FROM `recipe` WHERE mealname='%s'"%(searchmeal)
-    print(select)
-    cursor.execute(select)
-    data=cursor.fetchone()
-    if username:
-        return render_template('menu.html',login_message=1,user=username,result=data)
-    else:
-        return render_template('menu.html',login_message=0)
 
 @app.route('/addingredient', methods=['GET', 'POST'])  #新增食材到冰箱
 def addingredient():
