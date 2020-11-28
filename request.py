@@ -8,6 +8,10 @@ from flask.sessions import SessionInterface
 from flask.sessions import SessionMixin
 from itsdangerous import Signer, BadSignature, want_bytes
 
+import requests
+from bs4 import Tag, BeautifulSoup as bs
+from lxml import html
+
 import os
 import time
 app = Flask(__name__)
@@ -25,6 +29,8 @@ app.config['SECRET_KEY'] = "advancedsw"
 db= pymysql.connect(host="127.0.0.1",port=3306,user="root",password="",db="test") # 育恆的db
 cursor=db.cursor()
 
+#-----------------首頁功能------------------------
+
 @app.route('/') #進入點
 def f_index():
     username=session.get('username')
@@ -41,6 +47,47 @@ def login_in():
     else:
         return render_template('index.html',login_message=0)
 
+@app.route('/Searchrecipe' ,methods=['GET', 'POST']) #搜尋食譜畫面
+def Searchrecipe():
+    username=session.get('username')
+    SearchByfood = request.values['SearchByfood']
+    SearchByingredient=request.values['SearchByingredient']
+    if SearchByfood: #藉由餐點(炒飯) 找實作影片
+        print(SearchByfood)
+        select="SELECT * FROM `linkandrecipe`, `recipe` WHERE mealname='%s' and recipe.mealid=linkandrecipe.mealid"%(SearchByfood)
+        print(select)
+        cursor.execute(select)
+        data=cursor.fetchall()
+        print(data)
+        if username:
+            return render_template('findvideo.html',login_message=1,user=username,linkdata=data,recipe=SearchByfood)
+        else:
+            return render_template('findvideo.html',login_message=0)
+    elif SearchByingredient:#藉由食材(鹽 糖 等等)找實作影片
+        print(SearchByingredient)
+        ingredient=SearchByingredient.split()
+        print(ingredient)
+        temp=[]
+        for i in range(len(ingredient)):
+            select="SELECT mealname FROM `foodandrecipe`, `food`,`recipe` WHERE ingredientname='%s' and food.ingredientid=foodandrecipe.ingredientid and foodandrecipe.mealid=recipe.mealid"%(SearchByingredient[i])
+            print(select)
+            cursor.execute(select)
+            data=cursor.fetchall()
+            temp.append(data)
+        print(temp)
+        # select="SELECT * FROM `linkandrecipe`, `recipe`, WHERE mealname='%s' and recipe.mealid=linkandrecipe.mealid"%(SearchByfood)
+        # print(select)
+        # cursor.execute(select)
+        # data=cursor.fetchall()
+        # print(data)
+        # if username:
+        #     return render_template('findvideo.html',login_message=1,user=username,linkdata=data,recipe=SearchByfood)
+        # else:
+        #     return render_template('findvideo.html',login_message=0)
+    
+
+#-----------------首頁功能------------------------
+
 @app.route('/login') #登入頁面
 def login():
     session.clear()
@@ -51,20 +98,31 @@ def register():
     session.clear()
     return render_template('register.html')
 
+@app.route('/addrefrig') #新增畫面
+def addrefrig():
+    username=session.get('username')
+    if username:
+        return render_template('addrefrig.html',login_message=1,user=username)
+    
 @app.route('/refrig') #冰箱畫面
 def refrig():
     username=session.get('username')
     if username:
         select="SELECT * FROM `refrigerator` WHERE account='%s'"%(username)
-        print(select)
+        #print(select)
         cursor.execute(select)
         data=cursor.fetchall()
-        print(data)
-        #print(data[0][0]) 
-        #print(data[0][1])      #取值 二維
-        #print(data[0][2])
+        #print(data)
+        #print(len(data))
+        # change=[]
+        # for i in range(len(data)):
+        #     change.append(data[i])
+        # print(change[0][0])
+        # print(change[1])
+        #print(type(change))
+        #print(len(change))
         if (data!=None):
-            return render_template('refrig.html',login_message=1,userdata=data,user=username)
+            return render_template('refrig.html',login_message=1,user=username,userdata=data,lendata=len(data))
         else:
             return render_template('refrig.html',login_message=1,user=username)
     else:
@@ -153,6 +211,68 @@ def search():
         return render_template('menu.html',login_message=1,user=username,result=data)
     else:
         return render_template('menu.html',login_message=0)
+
+@app.route('/addingredient', methods=['GET', 'POST'])  #新增食材到冰箱
+def addingredient():
+    username=session.get('username')
+    ingredientname = request.values['ingredientname']
+    date =request.values['date']
+    expire =request.values['expire']
+
+    select="SELECT * FROM `refrigerator` WHERE account='%s'"%(username)
+    cursor.execute(select)
+    data=cursor.fetchall()
+
+    start_time=date.split('-')
+    end_time=expire.split('-')
+    print(start_time)
+    print(start_time[0])
+    print(type(start_time))
+    deadline=[]
+
+    for i in range(3):
+        deadline.append(int(end_time[i])-int(start_time[i]))
+    answer=deadline[0]*365+deadline[1]*30+deadline[2]
+    print(answer) 
+    #print(type(answer))
+    #print(len(data))
+    #print(str(date))
+    #print(type(date))
+    #print(type(expire))
+    insert="INSERT INTO `refrigerator` (selfid, ingredientname, date, expire, account, deadline) VALUES(%s,%s,%s,%s,%s,%s)"
+    print(insert)
+    try:
+        cursor.execute(insert,(len(data)+1,ingredientname,date,expire,username,str(answer)))
+        db.commit()
+    except:
+        db.rollback()
+    return redirect('/refrig')
+
+@app.route('/delete' , methods=['GET', 'POST'])  #刪除冰箱的食材
+def delete():
+    username=session.get('username')
+    selfid=request.form.get("selfid")
+    #print(username)
+    #print(selfid)
+    select="SELECT * FROM `refrigerator` WHERE account='%s'"%(username)
+    cursor.execute(select)
+    data=cursor.fetchall()
+    #print(select)
+
+    delete="DELETE FROM `refrigerator` WHERE account='%s' and selfid='%s'"%(username,selfid)
+    print(delete)
+
+    cursor.execute(delete)
+    db.commit()
+    i=int(selfid)       
+    print(i)
+    while(i!=len(data)):    
+        i+=1
+        update='UPDATE `refrigerator` SET `selfid` = '+str(i-1)+' WHERE `selfid` = '+str(i)+''
+        #print(update)
+        cursor.execute(update)
+        db.commit()
+    return redirect('/refrig')
 # @app.route('/searchCourse')  #課程檢索
 # def f_sear1ch1():
 #     student=session.get('username')

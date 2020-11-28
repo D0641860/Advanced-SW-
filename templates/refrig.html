@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <html lang="zxx">
+
 <head>
-	<title>LOANS2GO | Loans HTML Template</title>
+	<title>Hi-Yai料理小教室</title>
 	<meta charset="UTF-8">
 	<meta name="description" content="loans HTML Template">
 	<meta name="keywords" content="loans, html">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	
+
 	<!-- Favicon -->
-	<link href="static/img/favicon.ico" rel="shortcut icon"/>
+	<link href="static/img/favicon.ico" rel="shortcut icon" />
 
 	<!-- Google font -->
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&display=swap" rel="stylesheet">
- 
+	<link
+		href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&display=swap"
+		rel="stylesheet">
+
 	<!-- Stylesheets -->
-	<link rel="stylesheet" href="static/css/bootstrap.min.css"/>
-	<link rel="stylesheet" href="static/css/font-awesome.min.css"/>
-	<link rel="stylesheet" href="static/css/owl.carousel.min.css"/>
-	<link rel="stylesheet" href="static/css/flaticon.css"/>
-	<link rel="stylesheet" href="static/css/slicknav.min.css"/>
+	<link rel="stylesheet" href="static/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="static/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="static/css/owl.carousel.min.css" />
+	<link rel="stylesheet" href="static/css/flaticon.css" />
+	<link rel="stylesheet" href="static/css/slicknav.min.css" />
 
 	<!-- Main Stylesheets -->
-	<link rel="stylesheet" href="static/css/style.css"/>
+	<link rel="stylesheet" href="static/css/style.css" />
 
 
 	<!--[if lt IE 9]>
@@ -30,6 +33,7 @@
 	<![endif]-->
 
 </head>
+
 <body>
 	<!-- Page Preloder -->
 	<div id="preloder">
@@ -43,8 +47,8 @@
 		</a>
 		<nav class="header-nav">
 			<ul class="main-menu">
-				<li><a href="index" >Home</a></li>
-				<li><a href="refrig"class="active">Refrig</a></li>
+				<li><a href="index">Home</a></li>
+				<li><a href="refrig" class="active">Refrig</a></li>
 				<!-- <li><a href="#">Pages</a>
 					<ul class="sub-menu">
 						<li><a href="about-us.html">About Us</a></li>
@@ -52,10 +56,10 @@
 						<li><a href="elements.html">elements</a></li>
 					</ul>
 				</li> -->
-				
+
 				<li id=check_login><a href="login">Login</a></li>
 				<li id=check_register><a href="register">Register</a></li>
-				<li><a href="menu" >Menu</a></li>
+				<li><a href="menu">Menu</a></li>
 				<li id=check_logout><a href="logout">Logout</a></li>
 				<li><a href="index">{{user}}</a></li>
 			</ul>
@@ -65,86 +69,64 @@
 			</div> -->
 		</nav>
 	</header>
-	<!-- Header Section end -->
-
-	<!-- <section>{{userdata[0][0]}} {{userdata[0][1]}} </section>  取值 二維--> 
-
-	<!-- Hero Section end -->
-	<section class="hero-section">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6">
-					<div class="hs-text">
-						<h2>Looking for a same day loan?</h2>
-						<p>Donec eget efficitur ex. Donec eget dolor vitae eros feugiat tristique id vitae massa. Proin vulputate congue rutrum. Fusce lobortis a enim eget tempus. Class aptent taciti sociosqu ad litora torquent per conubia.</p>
-						<a href="#" class="site-btn sb-dark">Find out more</a>
-					</div>
-				</div>
-				<div class="col-lg-6">
-					<form class="hero-form">
-						<input type="text" placeholder="Your Name">
-						<input type="text" placeholder="Your E-mail">
-						<input type="text" placeholder="Your Phone">
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. </p>
-						<button class="site-btn">Apply for a loan now!</button>
-					</form>
-				</div>
-			</div>
-		</div>
-		<div class="hero-slider owl-carousel">
-			<div class="hs-item set-bg" data-setbg="static/img/hero-slider/1.jpg"></div>
-			<div class="hs-item set-bg" data-setbg="static/img/hero-slider/2.jpg"></div>
-			<div class="hs-item set-bg" data-setbg="static/img/hero-slider/3.jpg"></div>
-		</div>
-	</section>
-	<!-- Hero Section end -->
 
 	<!-- Why Section end -->
 	<section class="why-section spad">
 		<div class="container">
 			<div class="text-center mb-5 pb-4">
-				<h2>Why Choose us?</h2>
+				<h2>{{user}}’s Refrigterator</h2>
 			</div>
+			<!-- <div class="row">
+				<div class="col-md-4">
+					<div class="ib-text">
+						<h5>Money in 1 Hour!</h5>
+						<p>Lorem ipsum dolor sit amet, consecte-tur adipiscing elit, sed do eiusmod tem por incididunt
+							ut labore et dolore mag na aliqua. </p>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="ib-text">
+						<h5>Helpfull Staff</h5>
+						<p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per incep-tos himenaeos.
+							Suspendisse potenti. Ut gravida mattis.</p>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="ib-text">
+						<h5>Credit History Considered</h5>
+						<p>Conubia nostra, per inceptos himenae os. Suspendisse potenti. Ut gravida mattis magna, non
+							varius lorem sodales nec. In libero orci.</p>
+					</div>
+				</div>
+			</div> -->
+
 			<div class="row">
+				{% for data in userdata %}
 				<div class="col-md-4">
-					<div class="icon-box-item">
-						<div class="ib-icon">
-							<i class="flaticon-012-24-hours"></i>
-						</div>
-						<div class="ib-text">
-							<h5>Money in 1 Hour!</h5>
-							<p>Lorem ipsum dolor sit amet, consecte-tur adipiscing elit, sed do eiusmod tem por incididunt ut labore et dolore mag na aliqua. </p>
-						</div>
+					<div class="ib-text">
+						<h6>食材:{{data[1]}}</h6>
+						<h5>存入日期:{{data[2]}} 有效期限:{{data[3]}}</h5>
+						{% if data[5]|int <0 %}
+						<h5>已到期</h5>
+						{% else %}
+						<h5>剩餘日期約為:{{data[5]}}天</h5>
+						{% endif %}
+						<form action="delete" method="POST">
+							<input type="text" name="selfid" value="{{data[0]}}" hidden>
+							<input type="submit" value="刪除">
+						</form>
+
 					</div>
 				</div>
-				<div class="col-md-4">
-					<div class="icon-box-item">
-						<div class="ib-icon">
-							<i class="flaticon-036-customer-service"></i>
-						</div>
-						<div class="ib-text">
-							<h5>Helpfull Staff</h5>
-							<p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per incep-tos himenaeos. Suspendisse potenti. Ut gravida mattis.</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="icon-box-item">
-						<div class="ib-icon">
-							<i class="flaticon-039-info"></i>
-						</div>
-						<div class="ib-text">
-							<h5>Credit History Considered</h5>
-							<p>Conubia nostra, per inceptos himenae os. Suspendisse potenti. Ut gravida mattis magna, non varius lorem sodales nec. In libero orci.</p>
-						</div>
-					</div>
-				</div>
+				{% endfor %}
 			</div>
+
 			<div class="text-center pt-3">
-				<a href="#" class="site-btn sb-big">Apply Now!</a>
+				<a href="addrefrig" class="site-btn sb-big">Add Now!</a>
 			</div>
 		</div>
 	</section>
+
 	<!-- Why Section end -->
 
 
@@ -170,8 +152,12 @@
 					<div class="col-lg-6">
 						<div class="feature-text">
 							<h2>Get a personal loan from just 8.5% APR</h2>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tem por incididunt ut labore et dolore mag na aliqua.  Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse potenti. Ut gravida mattis magna, non varius lorem sodales nec. In libero orci, ornare non nisl.</p>
-							<a href="#" class="readmore">Apply for a loan now <img src="static/img/arrow.png" alt=""></a>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tem por
+								incididunt ut labore et dolore mag na aliqua. Class aptent taciti sociosqu ad litora
+								torquent per conubia nostra, per inceptos himenaeos. Suspendisse potenti. Ut gravida
+								mattis magna, non varius lorem sodales nec. In libero orci, ornare non nisl.</p>
+							<a href="#" class="readmore">Apply for a loan now <img src="static/img/arrow.png"
+									alt=""></a>
 						</div>
 					</div>
 				</div>
@@ -184,8 +170,12 @@
 					<div class="col-lg-6 order-lg-1">
 						<div class="feature-text">
 							<h2>Get aproved in minutes after you apply online</h2>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tem por incididunt ut labore et dolore mag na aliqua.  Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse potenti. Ut gravida mattis magna, non varius lorem sodales nec. In libero orci, ornare non nisl.</p>
-							<a href="#" class="readmore">Apply for a loan now <img src="static/img/arrow.png" alt=""></a>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tem por
+								incididunt ut labore et dolore mag na aliqua. Class aptent taciti sociosqu ad litora
+								torquent per conubia nostra, per inceptos himenaeos. Suspendisse potenti. Ut gravida
+								mattis magna, non varius lorem sodales nec. In libero orci, ornare non nisl.</p>
+							<a href="#" class="readmore">Apply for a loan now <img src="static/img/arrow.png"
+									alt=""></a>
 						</div>
 					</div>
 				</div>
@@ -203,10 +193,16 @@
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tem por incididunt ut labore et dolore mag na aliqua.  Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse potenti. Ut gravida mattis magna, non varius lorem sodales nec.</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tem por incididunt ut
+						labore et dolore mag na aliqua. Class aptent taciti sociosqu ad litora torquent per conubia
+						nostra, per inceptos himenaeos. Suspendisse potenti. Ut gravida mattis magna, non varius lorem
+						sodales nec.</p>
 				</div>
 				<div class="col-md-6">
-					<p>Sit amet, consectetur adipiscing elit, sed do eiusmod tem por incididunt ut labore et dolore mag na aliqua.  Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse potenti. Ut gravida mattis magna, non varius lorem sodales nec. In libero orci, ornare non nisl.</p>
+					<p>Sit amet, consectetur adipiscing elit, sed do eiusmod tem por incididunt ut labore et dolore mag
+						na aliqua. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
+						himenaeos. Suspendisse potenti. Ut gravida mattis magna, non varius lorem sodales nec. In libero
+						orci, ornare non nisl.</p>
 				</div>
 			</div>
 			<div class="row">
@@ -251,7 +247,10 @@
 					<div class="info-text">
 						<h2>We’re here to help</h2>
 						<h5>Monday to Thursday (8am to 8pm), and Friday (8am to 5pm).</h5>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tem por incididunt ut labore et dolore mag na aliqua.  Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse potenti. Ut gravida mattis magna, non varius lorem sodales nec. In libero orci, ornare non nisl.</p>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tem por incididunt ut
+							labore et dolore mag na aliqua. Class aptent taciti sociosqu ad litora torquent per conubia
+							nostra, per inceptos himenaeos. Suspendisse potenti. Ut gravida mattis magna, non varius
+							lorem sodales nec. In libero orci, ornare non nisl.</p>
 						<ul>
 							<li>+34 56873 2246</li>
 							<li>contact@loans2go.com</li>
@@ -336,14 +335,22 @@
 					</div>
 				</div>
 			</div>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tem por incididunt ut labore et dolore mag na aliqua.  Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse potenti. Ut gravida mattis magna, non varius lorem sodales nec. In libero orci, ornare non nisl.</p>
-			<div class="copyright"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></div>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tem por incididunt ut labore et
+				dolore mag na aliqua. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
+				himenaeos. Suspendisse potenti. Ut gravida mattis magna, non varius lorem sodales nec. In libero orci,
+				ornare non nisl.</p>
+			<div class="copyright">
+				<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+				Copyright &copy;
+				<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made
+				with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com"
+					target="_blank">Colorlib</a>
+				<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+			</div>
 		</div>
 	</footer>
 	<!-- Footer Section end -->
-	
+
 	<!--====== Javascripts & Jquery ======-->
 	<script src="./static/js/jquery-3.2.1.min.js"></script>
 	<script src="./static/js/bootstrap.min.js"></script>
@@ -352,24 +359,25 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="./static/js/jquery-ui.min.js"></script>
 	<script src="./static/js/main.js"></script>
 	<script>
-		$(document).ready(function (){
-			var login='{{login_message}}'
-			allCookies = document.cookie;
-			if(login==1)
-			{
+		$(document).ready(function () {
+			var login = '{{login_message}}'
+			var lendata = '{{lendata}}'
+			skr = parseInt(lendata)
+
+			if (login == 1) {
 				$("#check_login").hide();
 				$("#check_register").hide();
 				$("#check_logout").show();
 				$("#check_user").show();
-				
+
 			}
-			if(login==0)
-			{
+			if (login == 0) {
 				$("#check_logout").hide();
 				$("#check_user").hide();
 			}
 		}
 		)
 	</script>
-	</body>
+</body>
+
 </html>

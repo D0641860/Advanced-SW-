@@ -71,55 +71,30 @@
 	<section class="hero-section">
 		<div class="container">
 			<div class="row">
-				<div class="wrap">
-					<div class="search">
-						<form id="search_bar" action="search" method="POST">
-							<input id="search" type="search" placeholder="Wanna eat something?" name="search" required value="">
-							<button type="submit"><i class="fa fa-search"></i></button>
-							<p>Suggestion:<a id="fried_rice" href="">炒飯</a> &nbsp;&nbsp;<a id="fried_noodle" href="">炒麵</a></p>
-						</form>
+				<div class="col-lg-6">
+					<div class="hs-text">
+						<h2>Looking for a same day loan?</h2>
+						<p>Donec eget efficitur ex. Donec eget dolor vitae eros feugiat tristique id vitae massa. Proin vulputate congue rutrum. Fusce lobortis a enim eget tempus. Class aptent taciti sociosqu ad litora torquent per conubia.</p>
+						<a href="index" class="site-btn sb-dark">Find out more</a>
 					</div>
+				</div>
+				<div class="col-lg-6">
+					<form action="addingredient" method="POST" class="hero-form">
+                        <input type="text" placeholder="食材名稱" name="ingredientname" required>
+                        <input type="date" placeholder="存入日期" name="date" required>
+                        <input type="date" placeholder="到期日期" name="expire" required>
+                        <input  class="site-btn" type="submit" value="Submit">
+					</form>
+				</div>
 			</div>
 		</div>
-		<div class="fried rice">
-			<table>
-				<thead>
-					<tr>
-						<th colspan="2">The table header</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>{{result}}</td>
-						<td>with two columns</td>
-					</tr>
-				</tbody>
-			</table>
+		<div class="hero-slider owl-carousel">
+			<div class="hs-item set-bg" data-setbg="static/img/hero-slider/1.jpg"></div>
+			<div class="hs-item set-bg" data-setbg="static/img/hero-slider/2.jpg"></div>
+			<div class="hs-item set-bg" data-setbg="static/img/hero-slider/3.jpg"></div>
 		</div>
 	</section>
 	<!-- Hero Section end -->
-<br><br><br><br><br><br><br>
-	<!-- Why Section end -->
-	<section class="why-section spad">
-		<div class="container">
-			<div class="text-center mb-5 pb-4">
-				<h2 align="left">Big News!</h2>
-				<br><br>
-				<h4 align="left"><a href = "">驚悚!竟然有人炒飯用果醬!?</a></h4>
-				<p align="left">新聞內容</p>
-				<h4 align="left"><a href = "">兩個鍋子炒飯更香?帶您深入了解何謂"鍋氣"</a></h4>
-				<p align="left">新聞內容</p>
-				<h4 align="left"><a href = "">700元的炒飯!?哪邊與眾不同?特派記者帶您了解</a></h4>
-				<p align="left">新聞內容</p>
-			</div>
-							
-		</div>
-	</section>
-	<!-- Why Section end -->
-
-
-	
-
 
 	<!-- Footer Section -->
 	<footer class="footer-section">
@@ -132,9 +107,11 @@
 					<div class="footer-widget">
 						<h2>What we do</h2>
 						<ul>
-							<li><a href="#">Hi-Yai</a></li>
-							<li><a href="#">Free classroom</a></li>
-							<li><a href="#">Home improvement Hi-Yai</a></li>
+							<li><a href="#">Loans</a></li>
+							<li><a href="#">Car loans</a></li>
+							<li><a href="#">Debt consolidation loans</a></li>
+							<li><a href="#">Home improvement loans</a></li>
+							<li><a href="#"> Wedding loans</a></li>
 							<li><a href="#">Innovative Finance ISA</a></li>
 						</ul>
 					</div>
@@ -147,6 +124,8 @@
 							<li><a href="#">Our story</a></li>
 							<li><a href="#">Meet the board</a></li>
 							<li><a href="#">Meet the leadership team</a></li>
+							<li><a href="#">Awards</a></li>
+							<li><a href="#">Careers</a></li>
 						</ul>
 					</div>
 				</div>
@@ -155,6 +134,7 @@
 						<h2>Legal</h2>
 						<ul>
 							<li><a href="#">Privacy policy</a></li>
+							<li><a href="#">Loans2go principles</a></li>
 							<li><a href="#">Website terms</a></li>
 							<li><a href="#">Cookie policy</a></li>
 							<li><a href="#">Conflicts policy</a></li>
@@ -168,11 +148,13 @@
 							<li><a href="#">Support</a></li>
 							<li><a href="#">FAQ</a></li>
 							<li><a href="#">Sitemap</a></li>
+							<li><a href="#">Careers</a></li>
 							<li><a href="#">Contact us</a></li>
 						</ul>
 					</div>
 				</div>
 			</div>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tem por incididunt ut labore et dolore mag na aliqua.  Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse potenti. Ut gravida mattis magna, non varius lorem sodales nec. In libero orci, ornare non nisl.</p>
 			<div class="copyright"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></div>
