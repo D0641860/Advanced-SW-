@@ -15,6 +15,8 @@ from lxml import html
 import random
 import numpy as np
 
+from collections import Counter   
+
 import os
 import time
 app = Flask(__name__)
@@ -27,9 +29,9 @@ app.config['SESSION_FILE_THRESHOLD'] = 100
 app.config['SECRET_KEY'] = "advancedsw"
 #我來感受一下的
 #conn = pymysql.connect(host=‘127.0.0.1‘, port=3307, user=‘root‘, passwd=‘hch123‘, db=‘zst‘, charset=‘utf8‘)
-#db= pymysql.connect(host="127.0.0.1",port=3307,user="advancedsw",password="advancedsw",db="advancedsw")
+db= pymysql.connect(host="127.0.0.1",port=3307,user="advancedsw",password="advancedsw",db="advancedsw")
 
-db= pymysql.connect(host="127.0.0.1",port=3306,user="root",password="",db="test") # 育恆的db
+#db= pymysql.connect(host="127.0.0.1",port=3306,user="root",password="",db="test") # 育恆的db
 cursor=db.cursor()
 
 #-----------------首頁功能------------------------
@@ -56,37 +58,66 @@ def Searchrecipe():
     SearchByfood = request.values['SearchByfood']
     SearchByingredient=request.values['SearchByingredient']
     if SearchByfood: #藉由餐點(炒飯) 找實作影片
-        print(SearchByfood)
+        #print(SearchByfood)
         select="SELECT * FROM `linkandrecipe`, `recipe` WHERE mealname='%s' and recipe.mealid=linkandrecipe.mealid"%(SearchByfood)
-        print(select)
+        #print(select)
         cursor.execute(select)
         data=cursor.fetchall()
-        print(data)
+        
         if username:
             return render_template('findvideo.html',login_message=1,user=username,linkdata=data,recipe=SearchByfood)
         else:
-            return render_template('findvideo.html',login_message=0)
+            return render_template('findvideo.html',login_message=0,linkdata=data,recipe=SearchByfood)
+
     elif SearchByingredient:#藉由食材(鹽 糖 等等)找實作影片
-        print(SearchByingredient)
+        Findrecipelink=[]
+        #print(SearchByingredient)
         ingredient=SearchByingredient.split()
-        print(ingredient)
+        #print(ingredient)
         temp=[]
-        for i in range(len(ingredient)):
-            select="SELECT mealname FROM `foodandrecipe`, `food`,`recipe` WHERE ingredientname='%s' and food.ingredientid=foodandrecipe.ingredientid and foodandrecipe.mealid=recipe.mealid"%(SearchByingredient[i])
-            print(select)
-            cursor.execute(select)
-            data=cursor.fetchall()
-            temp.append(data)
-        print(temp)
-        # select="SELECT * FROM `linkandrecipe`, `recipe`, WHERE mealname='%s' and recipe.mealid=linkandrecipe.mealid"%(SearchByfood)
-        # print(select)
-        # cursor.execute(select)
-        # data=cursor.fetchall()
-        # print(data)
-        # if username:
-        #     return render_template('findvideo.html',login_message=1,user=username,linkdata=data,recipe=SearchByfood)
-        # else:
-        #     return render_template('findvideo.html',login_message=0)
+        if(len(ingredient)==1):
+                select="SELECT mealname FROM `foodandrecipe`, `food`,`recipe` WHERE ingredientname='%s' and food.ingredientid=foodandrecipe.ingredientid and foodandrecipe.mealid=recipe.mealid"%(ingredient[0])
+                cursor.execute(select)
+                data=cursor.fetchall()
+                for i in range(len(data)):
+                    ans=str(data[i])
+                    ans=ans.strip('()')
+                    ans=ans.strip(',')
+                    ans=ans.strip('\'') 
+                    select="SELECT * FROM `linkandrecipe`, `recipe` WHERE mealname='%s' and recipe.mealid=linkandrecipe.mealid"%(ans)
+                    cursor.execute(select)
+                    link_data=cursor.fetchall()
+                    for j in range(len(link_data)):
+                        Findrecipelink.append(link_data[j])
+                if username:
+                    return render_template('findvideo.html',login_message=1,user=username,linkdata=tuple(Findrecipelink))
+                else:
+                    return render_template('findvideo.html',login_message=0,linkdata=tuple(Findrecipelink))
+                    
+        else:
+            for i in range(len(ingredient)):
+                select="SELECT mealname FROM `foodandrecipe`, `food`,`recipe` WHERE ingredientname='%s' and food.ingredientid=foodandrecipe.ingredientid and foodandrecipe.mealid=recipe.mealid"%(ingredient[i])
+                print(select)
+                cursor.execute(select)
+                data=cursor.fetchall()
+                for j in range(len(list(data))):
+                    temp.append(list(data)[j])    
+            count=dict(Counter(temp))
+            temp2=[key for key,value in count.items()if value ==len(ingredient)]
+            for i in range(len(temp2)):
+                ans=str(temp2[i])
+                ans=ans.strip('()')
+                ans=ans.strip(',')
+                ans=ans.strip('\'')
+                select="SELECT * FROM `linkandrecipe`, `recipe` WHERE mealname='%s' and recipe.mealid=linkandrecipe.mealid"%(ans)
+                cursor.execute(select)
+                link_data=cursor.fetchall()
+                for j in range(len(link_data)):
+                    Findrecipelink.append(link_data[j])
+            if username:
+                return render_template('findvideo.html',login_message=1,user=username,linkdata=tuple(Findrecipelink))
+            else:
+                return render_template('findvideo.html',login_message=0,linkdata=tuple(Findrecipelink))
     
 
 #-----------------首頁功能------------------------
