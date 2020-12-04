@@ -62,17 +62,24 @@
         </nav>
     </header>
     <section class="why-section spad">
-        <div class="container">
-            <div class="row">
+                <table align="center"></table>
                 {% for data in linkdata %}
-                <div class="col-md-6">
-                    <div class="ib-text">
-                        <h6>{{data[4]}}影片提供您實作:{{data[2]}}</h6>
-                    </div>
-                </div>
+                <thead>
+                    <tr>
+                        <th>
+                            <h6>{{data[4]}}影片提供您實作:</h6>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><iframe width="560" height="315" src="{{data[2]}}" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe></td>
+                    </tr>
+                </tbody>
                 {% endfor %}
-            </div>
-        </div>
+                </table>
     </section>
     <!--====== Javascripts & Jquery ======-->
     <script src="static/js/jquery-3.2.1.min.js"></script>

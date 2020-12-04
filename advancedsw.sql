@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1:3307
--- 產生時間： 2020-11-29 13:32:36
+-- 產生時間： 2020-12-02 15:27:46
 -- 伺服器版本： 10.4.14-MariaDB
 -- PHP 版本： 7.3.23
 
@@ -76,10 +76,10 @@ CREATE TABLE `link` (
 --
 
 INSERT INTO `link` (`meallink`) VALUES
-('https://www.youtube.com/watch?v=5s-JNrKtQtQ&ab_channel=%E5%85%8B%E9%87%8C%E6%96%AF%E9%A4%90%E6%A1%8C'),
-('https://www.youtube.com/watch?v=b8VZQ7sLyNI&t=1s&ab_channel=Wecook123%E6%96%99%E7%90%86123'),
-('https://www.youtube.com/watch?v=haRLSizTMf0&ab_channel=Wecook123%E6%96%99%E7%90%86123'),
-('https://www.youtube.com/watch?v=hLkHCVEd9Yk&ab_channel=%E8%82%A5%E5%A4%A7%E5%8F%94FatUncle');
+('https://www.youtube.com/embed/5s-JNrKtQtQ'),
+('https://www.youtube.com/embed/haRLSizTMf0'),
+('https://www.youtube.com/embed/TrYh0oVTC6I'),
+('https://www.youtube.com/embed/ZgdCMwDLhq0');
 
 -- --------------------------------------------------------
 
@@ -98,10 +98,10 @@ CREATE TABLE `linkandrecipe` (
 --
 
 INSERT INTO `linkandrecipe` (`selfid`, `mealid`, `meallink`) VALUES
-('1', '1', 'https://www.youtube.com/watch?v=b8VZQ7sLyNI&t=1s&ab_channel=Wecook123%E6%96%99%E7%90%86123'),
-('2', '1', 'https://www.youtube.com/watch?v=5s-JNrKtQtQ&ab_channel=%E5%85%8B%E9%87%8C%E6%96%AF%E9%A4%90%E6%A1%8C'),
-('3', '2', 'https://www.youtube.com/watch?v=hLkHCVEd9Yk&ab_channel=%E8%82%A5%E5%A4%A7%E5%8F%94FatUncle'),
-('4', '2', 'https://www.youtube.com/watch?v=haRLSizTMf0&ab_channel=Wecook123%E6%96%99%E7%90%86123');
+('1', '1', 'https://www.youtube.com/embed/5s-JNrKtQtQ'),
+('2', '1', 'https://www.youtube.com/embed/ZgdCMwDLhq0'),
+('3', '2', 'https://www.youtube.com/embed/haRLSizTMf0'),
+('4', '2', 'https://www.youtube.com/embed/TrYh0oVTC6I');
 
 -- --------------------------------------------------------
 
@@ -131,7 +131,6 @@ INSERT INTO `recipe` (`mealid`, `mealname`) VALUES
 CREATE TABLE `refrigerator` (
   `selfid` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `ingredientname` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `date` date NOT NULL,
   `expire` date NOT NULL,
   `account` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `deadline` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL
@@ -141,8 +140,9 @@ CREATE TABLE `refrigerator` (
 -- 傾印資料表的資料 `refrigerator`
 --
 
-INSERT INTO `refrigerator` (`selfid`, `ingredientname`, `date`, `expire`, `account`, `deadline`) VALUES
-('1', '哭阿', '2020-11-11', '2020-11-30', '123', '19');
+INSERT INTO `refrigerator` (`selfid`, `ingredientname`, `expire`, `account`, `deadline`) VALUES
+('1', '修好了', '2020-12-02', '123', '1'),
+('2', '哭阿', '2020-12-10', '123', '9');
 
 -- --------------------------------------------------------
 

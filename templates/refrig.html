@@ -105,11 +105,11 @@
 				<div class="col-md-4">
 					<div class="ib-text">
 						<h6>食材:{{data[1]}}</h6>
-						<h5>存入日期:{{data[2]}} 有效期限:{{data[3]}}</h5>
-						{% if data[5]|int <0 %}
+						<h5>有效期限:{{data[2]}}</h5>
+						{% if data[4]|int <0 %}
 						<h5>已到期</h5>
 						{% else %}
-						<h5>剩餘日期約為:{{data[5]}}天</h5>
+						<h5>剩餘日期約為:{{data[4]}}天</h5>
 						{% endif %}
 						<form action="delete" method="POST">
 							<input type="text" name="selfid" value="{{data[0]}}" hidden>

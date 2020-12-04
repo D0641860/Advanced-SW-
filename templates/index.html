@@ -225,12 +225,12 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			var link2 = document.querySelector('#fried_noodle');
 			link.addEventListener('click',function(e){
 				e.preventDefault();
-				var search = $('#search').attr("value","炒飯");
+				var search = $("input[name='SearchByfood']").attr("value","炒飯");
 				$('#search_bar').submit();
 			}, false);
 			link2.addEventListener('click',function(e){
 				e.preventDefault();
-				var search = $('#search').attr("value","炒麵");
+				var search = $("input[name='SearchByfood']").attr("value","炒麵");
 				$('#search_bar').submit();
 			}, false);
 		})

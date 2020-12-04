@@ -17,6 +17,8 @@ import numpy as np
 
 from collections import Counter   
 
+from datetime import date
+
 import os
 import time
 app = Flask(__name__)
@@ -123,6 +125,16 @@ def Searchrecipe():
 #-----------------首頁功能------------------------
 
 
+#-----------------菜單功能------------------------
+@app.route('/menu') #菜單畫面
+def menu():
+    username=session.get('username')
+    if username:
+        return render_template('menu.html',login_message=1,user=username)
+    else:
+        return render_template('menu.html',login_message=0)
+
+
 @app.route('/random',methods=['GET', 'POST']) #隨機菜單
 def random_func():
     random_day = int(request.values['random_day'])
@@ -147,15 +159,72 @@ def random_func():
     print("temp: ",type(day_and_meal))
     print(len(day_and_meal[0]))
     return render_template('randomMenu.html',meal_from_back=day_and_meal, meal_i=len(day_and_meal[0]))
+
+#-----------------菜單功能------------------------
+
+
+#-----------------登入/登出功能------------------------
+
 @app.route('/login') #登入頁面
 def login():
     session.clear()
     return render_template('login.html')
 
+@app.route('/logout') #登出畫面
+def logout():
+    session.clear()
+    return redirect('/')
+
+@app.route('/confirm', methods=['GET', 'POST'])  #登入
+def confirm():  
+    session.clear()
+    ID = request.values['account']
+    pwd =request.values['password']
+    if(ID.isupper):
+        ID=ID.upper()
+    session['username']=ID
+    session.permanent=True
+    session.get('username')
+    select="SELECT * FROM `user` WHERE account='%s' and password='%s'"%(ID,pwd)
+    print(select)
+    cursor.execute(select)
+    data=cursor.fetchone()
+    if(data!=None):
+        return redirect('/')
+    else:
+        return '請註冊'
+
+#-----------------登入/登出功能------------------------
+
+
+#-----------------註冊功能------------------------
+
 @app.route('/register') #註冊畫面
 def register():
     session.clear()
     return render_template('register.html')
+
+
+@app.route('/action', methods=['GET', 'POST'])  #註冊
+def action():
+    session.clear()
+    ID = request.values['account']
+    pwd =request.values['password']
+    if(ID.isupper):
+        ID=ID.upper()
+    insert="INSERT INTO user (account, password) VALUES(%s,%s)"
+    print(insert)
+    try:
+        cursor.execute(insert,(ID,pwd))
+        db.commit()
+    except:
+        db.rollback()
+    return render_template("login.html",register_message=1)
+
+#-----------------註冊功能------------------------
+
+
+#-----------------冰箱功能------------------------
 
 @app.route('/addrefrig') #新增畫面
 def addrefrig():
@@ -171,123 +240,37 @@ def refrig():
         #print(select)
         cursor.execute(select)
         data=cursor.fetchall()
-        # print("data: ",data)
-        # print("data len: ",len(data))
-        # change=[]
-        # for i in range(len(data)):
-        #     change.append(data[i])
-        # print("change: ",change[0][0])
-        # print("change[1]: ",change[1])
-        # print("change type: ",type(change))
-        # print("change len: ",len(change))
         if (data!=None):
             return render_template('refrig.html',login_message=1,user=username,userdata=data,lendata=len(data))
         else:
             return render_template('refrig.html',login_message=1,user=username)
     else:
         return '請先登入'
-
-@app.route('/menu') #菜單畫面
-def menu():
-    username=session.get('username')
-    if username:
-        return render_template('menu.html',login_message=1,user=username)
-    else:
-        return render_template('menu.html',login_message=0)
-
-@app.route('/logout') #登出畫面
-def logout():
-    session.clear()
-    return redirect('/')
-
-
-@app.route('/action', methods=['GET', 'POST'])  #註冊
-def action():
-    session.clear()
-    ID = request.values['account']
-    pwd =request.values['password']
-    if(ID.isupper):
-        ID=ID.upper()
-    
-    # cursor.execute("SELECT * FROM `student` WHERE s_id='%s' and s_password='%s'"%(ID,pwd))
-    # data =cursor.fetchone()
-    insert="INSERT INTO user (account, password) VALUES(%s,%s)"
-    print(insert)
-    try:
-        cursor.execute(insert,(ID,pwd))
-        db.commit()
-    except:
-        db.rollback()
-
-    return render_template("login.html",register_message=1)
-    # if(data!=None):
-    #     session['username']=ID
-    #     session['password']=pwd
-    #     session['name']=data[1]
-    #     session['Class']=data[4]
-    #     if(data[3]==1):
-    #          session['login_message']=2 
-    #          login_message=2
-    #     else:
-    #          session['login_message']=1
-    #          login_message=1
-       
-    #     return render_template('searchCourse.html',alert_msg=0,login_message=login_message,student=ID,name=data[1],Class=data[4])
-    # else:
-    #     return render_template('fail.html')
-
-@app.route('/confirm', methods=['GET', 'POST'])  #登入
-def confirm():  
-    session.clear()
-    ID = request.values['account']
-    pwd =request.values['password']
-    if(ID.isupper):
-        ID=ID.upper()
-    session['username']=ID
-    session.permanent=True
-    session.get('username')
-    # cursor.execute("SELECT * FROM `student` WHERE s_id='%s' and s_password='%s'"%(ID,pwd))
-    # data =cursor.fetchone()
-    select="SELECT * FROM `user` WHERE account='%s' and password='%s'"%(ID,pwd)
-    print(select)
-    cursor.execute(select)
-    data=cursor.fetchone()
-    if(data!=None):
-        return redirect('/')
-    else:
-        return '請註冊'
-
 @app.route('/addingredient', methods=['GET', 'POST'])  #新增食材到冰箱
 def addingredient():
     username=session.get('username')
     ingredientname = request.values['ingredientname']
-    date =request.values['date']
     expire =request.values['expire']
 
     select="SELECT * FROM `refrigerator` WHERE account='%s'"%(username)
     cursor.execute(select)
     data=cursor.fetchall()
 
-    start_time=date.split('-')
+    start_time=date.today()
+    start_time=str(start_time)
+    start_time=start_time.split('-')
     end_time=expire.split('-')
-    print(start_time)
-    print(start_time[0])
-    print(type(start_time))
+    
     deadline=[]
 
     for i in range(3):
         deadline.append(int(end_time[i])-int(start_time[i]))
     answer=deadline[0]*365+deadline[1]*30+deadline[2]
     print(answer) 
-    #print(type(answer))
-    #print(len(data))
-    #print(str(date))
-    #print(type(date))
-    #print(type(expire))
-    insert="INSERT INTO `refrigerator` (selfid, ingredientname, date, expire, account, deadline) VALUES(%s,%s,%s,%s,%s,%s)"
+    insert="INSERT INTO `refrigerator` (selfid, ingredientname, expire, account, deadline) VALUES(%s,%s,%s,%s,%s)"
     print(insert)
     try:
-        cursor.execute(insert,(len(data)+1,ingredientname,date,expire,username,str(answer)))
+        cursor.execute(insert,(len(data)+1,ingredientname,expire,username,str(answer)))
         db.commit()
     except:
         db.rollback()
@@ -318,6 +301,11 @@ def delete():
         cursor.execute(update)
         db.commit()
     return redirect('/refrig')
+
+#-----------------冰箱功能------------------------
+
+
+
 # @app.route('/searchCourse')  #課程檢索
 # def f_sear1ch1():
 #     student=session.get('username')
