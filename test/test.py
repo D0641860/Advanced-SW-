@@ -46,10 +46,14 @@ class test(unittest.TestCase):
             #time.sleep(2)        
             cursor.execute(select)
             data=cursor.fetchone()
+
+            self.assertNotNone(data,msg="Failed!")
+            '''
             if(data!=None):
                 print("{} Successful!".format(test_username[i]))
             else:
                 print("Fucking failed!")
+            '''
             i += 1
 
         def tearDown(self): #每一次執行測試方法後會執行
