@@ -32,12 +32,8 @@ app.config['SECRET_KEY'] = "advancedsw"
 #我來感受一下的
 #conn = pymysql.connect(host=‘127.0.0.1‘, port=3307, user=‘root‘, passwd=‘hch123‘, db=‘zst‘, charset=‘utf8‘)
 
-#db= pymysql.connect(host="127.0.0.1",port=3307,user="advancedsw",password="advancedsw",db="advancedsw")
-db= pymysql.connect(host="127.0.0.1",port=3306,user="root",password="",db="test")
-
-#db= pymysql.connect(host="127.0.0.1",port=3307,user="advancedsw",password="advancedsw",db="advancedsw")
-
-
+db= pymysql.connect(host="127.0.0.1",port=3307,user="advancedsw",password="advancedsw",db="advancedsw")
+#db= pymysql.connect(host="127.0.0.1",port=3306,user="root",password="",db="test")
 #db= pymysql.connect(host="127.0.0.1",port=3306,user="root",password="",db="test") # 育恆的db
 cursor=db.cursor()
 

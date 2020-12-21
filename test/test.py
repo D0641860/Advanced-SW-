@@ -13,6 +13,7 @@ cursor=db.cursor()
 test_username = ["admin","test1","test2","test3"]
 test_password = ["admin2016","1test2020","2test2020","3test2020"] 
 
+
 class test(unittest.TestCase):
     
     def setUp(self): #每一次執行測試方法"前"會執行
