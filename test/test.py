@@ -16,13 +16,15 @@ class test(unittest.TestCase):
     
     def setUp(self): #每一次執行測試方法"前"會執行
         self.browser = webdriver.Chrome()
+        self.f = open('test_record.txt', 'w')
     
     def test_register_login(self):
         i = 0
         browser = self.browser
+        f = self.f
         while i<4:
             browser.get("http://localhost:5000/register")    
-            time.sleep(1)
+            time.sleep(2)
 
             account = browser.find_element_by_name('account')
             password = browser.find_element_by_name('password')
@@ -38,26 +40,24 @@ class test(unittest.TestCase):
             alert = browser.switch_to_alert()
             alert.accept()
             
+            time.sleep(1)
             #select DB
             ID = test_username[i]
             pwd = test_password[i]
             ID=ID.upper()
             select="SELECT * FROM `user` WHERE account='%s' and password='%s'"%(ID,pwd)
-            #time.sleep(2)        
+                   
             cursor.execute(select)
             data=cursor.fetchone()
-
-            self.assertNotNone(data,msg="Failed!")
-            '''
-            if(data!=None):
-                print("{} Successful!".format(test_username[i]))
-            else:
-                print("Fucking failed!")
-            '''
+            print(data)
+            self.assertIsNotNone(data,msg="Failed!")
+            print("{} Successful!".format(test_username[i]))
+            f.write("{} Successful!\n".format(test_username[i]))
             i += 1
 
         def tearDown(self): #每一次執行測試方法後會執行
             self.browser.close()
+            self.f.close()
 
 if __name__ == "__main__":
     unittest.main()
