@@ -1,0 +1,11 @@
+Flask==1.1.2
+
+PyMySQL==0.10.1
+
+requests==2.24.0
+
+numpy==1.19.4
+
+bs4==0.0.1
+
+itsdangerous==1.1.0
