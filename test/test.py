@@ -7,7 +7,8 @@ import time
 
 
 #db = pymysql.connect(host="127.0.0.1",port=3306,user="root",password="",db="test")
-db= pymysql.connect(host="localhost",port=3307,user="advancedsw",password="advancedsw",db="advancedsw")
+#db= pymysql.connect(host="127.0.0.1",port=3306,user="root",password="advancesw",db="advancedsw")
+db= pymysql.connect(host="140.134.26.99",port=34586,user="advancesw",password="advancesw",db="advancedsw")
 cursor=db.cursor()
 
 test_username = ["admin","test1","test2","test3"]
