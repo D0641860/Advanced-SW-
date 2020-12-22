@@ -18,7 +18,7 @@ test_password = ["admin2016","1test2020","2test2020","3test2020"]
 class test(unittest.TestCase):
     
     def setUp(self): #每一次執行測試方法"前"會執行
-        self.browser = webdriver.Chrome()
+        self.browser = webdriver.Chrome('./chromedriver')
         self.f = open('test_record.txt', 'w')
     
     def test_register_login(self):
