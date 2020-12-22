@@ -193,6 +193,7 @@ def confirm():
     if(data!=None):
         return redirect('/')
     else:
+        session.clear()
         return '請註冊'
 
 #-----------------登入/登出功能------------------------
