@@ -1,0 +1,25 @@
+language: python
+python:
+  - "3.7.9"
+pip:
+  - "20.2.4"
+addons:
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
+services:
+    -xvfb
+install:
+  - pip install -r requirements.txt
+
+before_script:
+  - wget http://chromedriver.storage.googleapis.com/87.0.4280.88/chromedriver_linux64.zip
+  - unzip chromedriver_linux64.zip -d /home/travis/virtualenv/python3.7.9/bin/
+  - export CHROME_BIN=/usr/bin/google-chrome
+  - "export DISPLAY=:99.0"
+  - sleep 3 
+
+script:
+  - python ./test/testbytravis.py

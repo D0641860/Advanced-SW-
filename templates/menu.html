@@ -30,6 +30,19 @@
 	<![endif]-->
 
 </head>
+<style>
+	
+	body {
+	  background-image: url("static/img/back.jpg");
+	  background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center;
+      background-size: cover;
+	}
+	p{
+		color:white;
+	}
+	</style>
 <body>
 	<!-- Page Preloder -->
 	<div id="preloder">
@@ -85,13 +98,13 @@
 			<table>
 				<thead>
 					<tr>
-						<th colspan="2">The table header</th>
+						<th colspan="2"><font color = "white"> The table header</font></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
 						<td>{{result}}</td>
-						<td>with two columns</td>
+						<td><font color = "white">with two columns</font></td>
 					</tr>
 				</tbody>
 			</table>
@@ -104,13 +117,13 @@
 					<div class="search">
 						<form id="random_form" action="random" method="POST">
 							<input id="random_day" type="text" name="random_day">
-							<label>天</label>
+							<label><font color = "white">天</font></label>
 							<select name="num_of_meal">
 								<option value="1">1</option>
 								<option value="2">2</option>
 								<option value="3">3</option>
 							</select>
-							<label>餐</label>
+							<label><font color = "white">餐</font></label>
 							<input type="submit" value="Submit">
 						</form>
 					</div>

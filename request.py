@@ -34,6 +34,9 @@ app.config['SECRET_KEY'] = "advancedsw"
 #db= pymysql.connect(host="127.0.0.1",port=3307,user="advancedsw",password="advancedsw",db="advancedsw")
 
 db= pymysql.connect(host="127.0.0.1",port=3306,user="root",password="",db="test") # 育恆的db
+
+#db= pymysql.connect(host="140.134.26.99",port=34586,user="root",password="advancesw",db="advancedsw")
+
 cursor=db.cursor()
 
 #-----------------首頁功能------------------------
@@ -192,6 +195,7 @@ def confirm():
     if(data!=None):
         return redirect('/')
     else:
+        session.clear()
         return '請註冊'
 
 #-----------------登入/登出功能------------------------
@@ -527,6 +531,7 @@ def delete():
      
     
 if __name__ == "__main__": 
-    app.run(debug=False, host='127.0.0.1', port=5000)  
+    app.run(debug=False, host='127.0.0.1', port=5000)
+    #app.run(debug=False, host='0.0.0.0', port=5000)
     sys.exit()
     
