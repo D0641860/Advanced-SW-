@@ -16,7 +16,7 @@ class test(unittest.TestCase):
     
     def setUp(self): #每一次執行測試方法"前"會執行
         self.browser = webdriver.Chrome()
-        self.f = open('test_record.txt', 'w')
+        #self.f = open('test_record.txt', 'w')
     
     def test_register_login(self):
         i = 0
@@ -40,7 +40,6 @@ class test(unittest.TestCase):
             alert = browser.switch_to_alert()
             alert.accept()
             
-            time.sleep(1)
             #select DB
             ID = test_username[i]
             pwd = test_password[i]
@@ -48,16 +47,25 @@ class test(unittest.TestCase):
             select="SELECT * FROM `user` WHERE account='%s' and password='%s'"%(ID,pwd)
                    
             cursor.execute(select)
+            db.commit()
             data=cursor.fetchone()
-            print(data)
             self.assertIsNotNone(data,msg="Failed!")
             print("{} Successful!".format(test_username[i]))
-            f.write("{} Successful!\n".format(test_username[i]))
+            #f.write("{} Successful!\n".format(test_username[i]))
             i += 1
+
+        def test_index(slef):
+            browser = self.browser
+            browser.get("http://localhost:5000")
+            browser.find_element_by_name('check_hmoe').click()
+            time.sleep(1)
+            
+
+
 
         def tearDown(self): #每一次執行測試方法後會執行
             self.browser.close()
-            self.f.close()
+            #self.f.close()
 
 if __name__ == "__main__":
     unittest.main()
