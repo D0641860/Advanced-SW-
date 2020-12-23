@@ -9,7 +9,7 @@ import time
 
 #db = pymysql.connect(host="127.0.0.1",port=3306,user="root",password="",db="test")
 #db= pymysql.connect(host="127.0.0.1",port=3306,user="root",password="advancesw",db="advancedsw")
-db= pymysql.connect(host="140.134.26.99",port=34586,user="root",password="advancesw",db="advancedsw")
+#db= pymysql.connect(host="140.134.26.99",port=34586,user="root",password="advancesw",db="advancedsw") #邱一號
 cursor=db.cursor()
 
 test_username = ["admin","test1","test2","test3"]
@@ -26,7 +26,8 @@ class test(unittest.TestCase):
         browser = self.browser
         #f = self.f
         while i<4:
-            browser.get("https://haiya.kainull.com/register")    
+            #browser.get("https://haiya.kainull.com/register")
+            browser.get("http://localhost:5000/register")    
             time.sleep(2)
 
             account = browser.find_element_by_name('account')
@@ -62,7 +63,7 @@ class test(unittest.TestCase):
         browser = self.browser
         browser.get("http://localhost:5000")
         browser.find_element_by_id('check_home').click()
-        time.sleep(1)
+        time.sleep(3)
 
         home = browser.current_url
         self.assertEqual(home,"http://localhost:5000/index")
@@ -73,10 +74,12 @@ class test(unittest.TestCase):
         Is_user_login = browser.find_element_by_id('check_user').text
         if (Is_user_login!=None):
             browser.find_element_by_id('check_refig').click()
+            time.sleep(3)
             temp = browser.find_element_by_tag_name('body').text
             self.assertEqual(temp,"請先登入")
         else:
             browser.find_element_by_id('check_refig').click()
+            time.sleep(3)
             temp = browser.find_element_by_tag_name('body').text
             self.assertNotEqual(temp,"請先登入")
 
@@ -84,6 +87,7 @@ class test(unittest.TestCase):
         browser = self.browser
         browser.get("http://localhost:5000")
         browser.find_element_by_id('check_menu').click()
+        time.sleep(3)
         menu = browser.current_url
         self.assertEqual(menu,"http://localhost:5000/menu")
     
