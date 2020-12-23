@@ -4,7 +4,7 @@ import urllib.request
 from selenium import webdriver
 import pymysql 
 import time
-import chromedriver_binary
+#import chromedriver_binary
 
 
 #db = pymysql.connect(host="127.0.0.1",port=3306,user="root",password="",db="test")
@@ -16,7 +16,7 @@ test_username = ["admin","test1","test2","test3"]
 test_password = ["admin2016","1test2020","2test2020","3test2020"] 
 
 options = webdriver.ChromeOptions()
-options.binary_location = '/usr/bin/chromium-browser'
+#options.binary_location = '/usr/bin/chromium-browser'
 #All the arguments added for chromium to work on selenium
 options.add_argument("--no-sandbox") #This make Chromium reachable
 options.add_argument("--no-default-browser-check") #Overrides default choices
