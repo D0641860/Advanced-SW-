@@ -25,7 +25,6 @@ class test(unittest.TestCase):
         i = 0
         browser = self.browser
         f = self.f
-        browser=driver
         while i<4:
             browser.get("https://haiya.kainull.com/register")    
             time.sleep(2)
@@ -49,11 +48,12 @@ class test(unittest.TestCase):
             ID = test_username[i]
             pwd = test_password[i]
             ID=ID.upper()
+            print(ID,pwd)
             select="SELECT * FROM `user` WHERE account='%s' and password='%s'"%(ID,pwd)
-                   
+            print(select)
             cursor.execute(select)
+            db.commit()
             data=cursor.fetchone()
-            print(data)
             self.assertIsNotNone(data,msg="Failed!")
             print("{} Successful!".format(test_username[i]))
             f.write("{} Successful!\n".format(test_username[i]))

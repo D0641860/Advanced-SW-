@@ -61,6 +61,7 @@ class test(unittest.TestCase):
             select="SELECT * FROM `user` WHERE account='%s' and password='%s'"%(ID,pwd)
                    
             cursor.execute(select)
+            db.commit()
             data=cursor.fetchone()
             print(data)
             self.assertIsNotNone(data,msg="Failed!")
