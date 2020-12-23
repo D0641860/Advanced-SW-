@@ -15,16 +15,25 @@ cursor=db.cursor()
 test_username = ["admin","test1","test2","test3"]
 test_password = ["admin2016","1test2020","2test2020","3test2020"] 
 
+options = webdriver.ChromeOptions()
+#options.binary_location = '/usr/bin/chromium-browser'
+#All the arguments added for chromium to work on selenium
+options.add_argument("--no-sandbox") #This make Chromium reachable
+options.add_argument("--no-default-browser-check") #Overrides default choices
+options.add_argument("--no-first-run")
+options.add_argument("--disable-default-apps") 
+driver = webdriver.Chrome('/home/travis/virtualenv/python3.7.9/bin/chromedriver',chrome_options=options)
+#driver = webdriver.Chrome("/path/to/chrome",chrome_options=options)
 class test(unittest.TestCase):
     
-    def setUp(self): #每一次執行測試方法"前"會執行
-        self.browser = webdriver.Chrome('./chromedriver')
-        self.f = open('test_record.txt', 'w')
+    #def setUp(self): #每一次執行測試方法"前"會執行
+    #    self.browser = webdriver.Chrome('./chromedriver')
+    #   self.f = open('test_record.txt', 'w')
     
     def test_register_login(self):
         i = 0
-        browser = self.browser
-        f = self.f
+        #browser = self.browser
+        #f = self.f
         browser=driver
         while i<4:
             browser.get("https://haiya.kainull.com/register")    
@@ -56,12 +65,12 @@ class test(unittest.TestCase):
             print(data)
             self.assertIsNotNone(data,msg="Failed!")
             print("{} Successful!".format(test_username[i]))
-            f.write("{} Successful!\n".format(test_username[i]))
+            #f.write("{} Successful!\n".format(test_username[i]))
             i += 1
 
         def tearDown(self): #每一次執行測試方法後會執行
             self.browser.close()
-            self.f.close()
+            #self.f.close()
 
 if __name__ == "__main__":
     unittest.main()

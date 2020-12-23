@@ -22,4 +22,4 @@ before_script:
   - sleep 3 
 
 script:
-  - python ./test/test.py
+  - python ./test/testbytravis.py
