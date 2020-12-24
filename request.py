@@ -21,6 +21,9 @@ from datetime import date
 
 import os
 import time
+
+from pymysql import connect
+
 app = Flask(__name__)
 #student_ID=""
 app.config['SESSION_PERMANENT'] = True
@@ -31,11 +34,17 @@ app.config['SESSION_FILE_THRESHOLD'] = 100
 app.config['SECRET_KEY'] = "advancedsw"
 #我來感受一下的
 #conn = pymysql.connect(host=‘127.0.0.1‘, port=3307, user=‘root‘, passwd=‘hch123‘, db=‘zst‘, charset=‘utf8‘)
-db= pymysql.connect(host="127.0.0.1",port=3307,user="advancedsw",password="advancedsw",db="advancedsw") #鉦淩的
+
+
+#db= pymysql.connect(host="127.0.0.1",port=3307,user="advancedsw",password="advancedsw",db="advancedsw") #鉦淩的
+
+db.ping(reconnect=True)
 
 #db= pymysql.connect(host="127.0.0.1",port=3306,user="root",password="",db="test") # 育恆的db
 
 #db= pymysql.connect(host="140.134.26.99",port=34586,user="root",password="advancesw",db="advancedsw") #邱一號的
+
+db= pymysql.connect(host="127.0.0.1",port=3306,user="root",password="advancesw",db="advancedsw") #邱一號的
 
 cursor=db.cursor()
 
@@ -62,6 +71,9 @@ def Searchrecipe():
     username=session.get('username')
     SearchByfood = request.values['SearchByfood']
     SearchByingredient=request.values['SearchByingredient']
+
+    db.ping(reconnect=True)
+
     if SearchByfood: #藉由餐點(炒飯) 找實作影片
         #print(SearchByfood)
         select="SELECT * FROM `linkandrecipe`, `recipe` WHERE mealname='%s' and recipe.mealid=linkandrecipe.mealid"%(SearchByfood)
@@ -145,6 +157,8 @@ def random_func():
     print("random:",random_day)
     print("num_of_meal:",num_of_meal)
 
+    db.ping(reconnect=True)
+
     select = "SELECT * FROM `recipe`"
     cursor.execute(select)
     data = cursor.fetchall()
@@ -183,6 +197,9 @@ def confirm():
     session.clear()
     ID = request.values['account']
     pwd =request.values['password']
+
+    db.ping(reconnect=True)
+
     if(ID.isupper):
         ID=ID.upper()
     session['username']=ID
@@ -212,8 +229,12 @@ def register():
 @app.route('/action', methods=['GET', 'POST'])  #註冊
 def action():
     session.clear()
+
     ID = request.values['account']
     pwd =request.values['password']
+
+    db.ping(reconnect=True)
+
     if(ID.isupper):
         ID=ID.upper()
     insert="INSERT INTO user (account, password) VALUES(%s,%s)"
@@ -239,6 +260,9 @@ def addrefrig():
 @app.route('/refrig') #冰箱畫面
 def refrig():
     username=session.get('username')
+
+    db.ping(reconnect=True)
+
     if username:
         select="SELECT * FROM `refrigerator` WHERE account='%s'"%(username)
         #print(select)
@@ -252,9 +276,12 @@ def refrig():
         return '請先登入'
 @app.route('/addingredient', methods=['GET', 'POST'])  #新增食材到冰箱
 def addingredient():
+
     username=session.get('username')
     ingredientname = request.values['ingredientname']
     expire =request.values['expire']
+
+    db.ping(reconnect=True)
 
     select="SELECT * FROM `refrigerator` WHERE account='%s'"%(username)
     cursor.execute(select)
@@ -286,6 +313,8 @@ def delete():
     selfid=request.form.get("selfid")
     #print(username)
     #print(selfid)
+    db.ping(reconnect=True)
+
     select="SELECT * FROM `refrigerator` WHERE account='%s'"%(username)
     cursor.execute(select)
     data=cursor.fetchall()
@@ -531,7 +560,7 @@ def delete():
      
     
 if __name__ == "__main__": 
-    app.run(debug=False, host='127.0.0.1', port=5000)
-    #app.run(debug=False, host='0.0.0.0', port=5000)
+    #app.run(debug=False, host='127.0.0.1', port=5000)
+    app.run(debug=False, host='0.0.0.0', port=5000)
     sys.exit()
     

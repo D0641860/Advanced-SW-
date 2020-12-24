@@ -4,6 +4,9 @@ import urllib.request
 from selenium import webdriver
 import pymysql 
 import time
+
+from pymysql import connect
+
 #import chromedriver_binary
 
 
@@ -26,6 +29,7 @@ driver = webdriver.Chrome('/home/travis/virtualenv/python3.7.9/bin/chromedriver'
 #driver = webdriver.Chrome("/path/to/chrome",chrome_options=options)
 class test(unittest.TestCase):
     
+    db.ping(reconnect=True)
     #def setUp(self): #每一次執行測試方法"前"會執行
     #    self.browser = webdriver.Chrome('./chromedriver')
     #   self.f = open('test_record.txt', 'w')
@@ -69,9 +73,41 @@ class test(unittest.TestCase):
             #f.write("{} Successful!\n".format(test_username[i]))
             i += 1
 
-        def tearDown(self): #每一次執行測試方法後會執行
-            self.browser.close()
-            #self.f.close()
+    def test_index(self):
+        browser = self.browser
+        browser.get("https://haiya.kainull.com")
+        browser.find_element_by_id('check_home').click()
+        time.sleep(3)
+
+        home = browser.current_url
+        self.assertEqual(home,"https://haiya.kainull.com/index")
+
+    def test_refig(self):
+        browser = self.browser
+        browser.get("https://haiya.kainull.com")
+        Is_user_login = browser.find_element_by_id('check_user').text
+        if (Is_user_login!=None):
+            browser.find_element_by_id('check_refig').click()
+            time.sleep(3)
+            temp = browser.find_element_by_tag_name('body').text
+            self.assertEqual(temp,"請先登入")
+        else:
+            browser.find_element_by_id('check_refig').click()
+            time.sleep(3)
+            temp = browser.find_element_by_tag_name('body').text
+            self.assertNotEqual(temp,"請先登入")
+
+    def test_menu(self):
+        browser = self.browser
+        browser.get("https://haiya.kainull.com")
+        browser.find_element_by_id('check_menu').click()
+        time.sleep(3)
+        menu = browser.current_url
+        self.assertEqual(menu,"https://haiya.kainull.com/menu")
+    
+    def tearDown(self): #每一次執行測試方法後會執行
+        self.browser.close()
+        #self.f.close()
 
 if __name__ == "__main__":
     unittest.main()

@@ -4,19 +4,25 @@ import urllib.request
 from selenium import webdriver
 import pymysql 
 import time
+
+from pymysql import connect
 #import chromedriver_binary
 
+db= pymysql.connect(host="127.0.0.1",port=3307,user="advancedsw",password="advancedsw",db="advancedsw") #鉦淩的
 
 #db = pymysql.connect(host="127.0.0.1",port=3306,user="root",password="",db="test")
 #db= pymysql.connect(host="127.0.0.1",port=3306,user="root",password="advancesw",db="advancedsw")
 #db= pymysql.connect(host="140.134.26.99",port=34586,user="root",password="advancesw",db="advancedsw") #邱一號
+
 cursor=db.cursor()
 
 test_username = ["admin","test1","test2","test3"]
 test_password = ["admin2016","1test2020","2test2020","3test2020"] 
 
 class test(unittest.TestCase):
-    
+
+    db.ping(reconnect=True)
+
     def setUp(self): #每一次執行測試方法"前"會執行
         self.browser = webdriver.Chrome()
         #self.f = open('test_record.txt', 'w')
