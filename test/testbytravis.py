@@ -30,13 +30,12 @@ driver = webdriver.Chrome('/home/travis/virtualenv/python3.7.9/bin/chromedriver'
 class test(unittest.TestCase):
     
     db.ping(reconnect=True)
-    #def setUp(self): #每一次執行測試方法"前"會執行
-    #    self.browser = webdriver.Chrome('./chromedriver')
+    def setUp(self): #每一次執行測試方法"前"會執行
+        self.browser = webdriver.Chrome('/home/travis/virtualenv/python3.7.9/bin/chromedriver',chrome_options=options)
     #   self.f = open('test_record.txt', 'w')
-    browser=driver
     def test_register_login(self):
         i = 0
-        #browser=driver
+        browser = self.browser
         #f = self.f
         
         while i<4:
@@ -74,6 +73,7 @@ class test(unittest.TestCase):
             i += 1
 
     def test_index(self):
+        browser = self.browser
         browser.get("https://haiya.kainull.com")
         browser.find_element_by_id('check_home').click()
         time.sleep(3)
@@ -82,6 +82,7 @@ class test(unittest.TestCase):
         self.assertEqual(home,"https://haiya.kainull.com/index")
 
     def test_refig(self):
+        browser = self.browser
         browser.get("https://haiya.kainull.com")
         Is_user_login = browser.find_element_by_id('check_user').text
         if (Is_user_login!=None):
@@ -96,6 +97,7 @@ class test(unittest.TestCase):
             self.assertNotEqual(temp,"請先登入")
 
     def test_menu(self):
+        browser = self.browser
         browser.get("https://haiya.kainull.com")
         browser.find_element_by_id('check_menu').click()
         time.sleep(3)
@@ -103,7 +105,7 @@ class test(unittest.TestCase):
         self.assertEqual(menu,"https://haiya.kainull.com/menu")
     
     def tearDown(self): #每一次執行測試方法後會執行
-        browser.close()
+        self.browser.close()
         #self.f.close()
 
 if __name__ == "__main__":
