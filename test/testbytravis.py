@@ -106,6 +106,7 @@ class test(unittest.TestCase):
         self.assertEqual(menu,"https://haiya.kainull.com/menu")
     
     def tearDown(self): #每一次執行測試方法後會執行
+        browser=driver
         browser.close()
         #self.f.close()
 
