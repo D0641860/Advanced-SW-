@@ -41,9 +41,9 @@ app.config['SECRET_KEY'] = "advancedsw"
 
 #db= pymysql.connect(host="127.0.0.1",port=3306,user="root",password="",db="test") # 育恆的db
 
-#db= pymysql.connect(host="140.134.26.99",port=34586,user="root",password="advancesw",db="advancedsw") #邱一號的
+db= pymysql.connect(host="140.134.26.99",port=34586,user="root",password="advancesw",db="advancedsw") #邱一號的
 
-db= pymysql.connect(host="127.0.0.1",port=3306,user="root",password="advancesw",db="advancedsw") #邱一號的
+#db= pymysql.connect(host="127.0.0.1",port=3306,user="root",password="advancesw",db="advancedsw") #邱一號的
 
 db.ping(reconnect=True)
 
