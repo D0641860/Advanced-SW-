@@ -12,7 +12,7 @@ from pymysql import connect
 
 #db = pymysql.connect(host="127.0.0.1",port=3306,user="root",password="",db="test")
 #db= pymysql.connect(host="127.0.0.1",port=3306,user="root",password="advancesw",db="advancedsw")
-d= pymysql.connect(host="140.134.26.99",port=34586,user="root",password="advancesw",db="advancedsw")
+db= pymysql.connect(host="140.134.26.99",port=34586,user="root",password="advancesw",db="advancedsw")
 cursor=db.cursor()
 
 test_username = ["admin","test1","test2","test3"]
